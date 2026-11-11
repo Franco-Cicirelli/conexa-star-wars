@@ -1,0 +1,24 @@
+{
+  "message": "ok",
+  "total_records": 36,
+  "total_pages": 18,
+  "previous": "https://www.swapi.tech/api/starships?page=17&limit=2",
+  "next": null,
+  "results": [
+    {
+      "uid": "74",
+      "name": "Belbullab-22 starfighter",
+      "url": "https://www.swapi.tech/api/starships/74"
+    },
+    {
+      "uid": "75",
+      "name": "V-wing",
+      "url": "https://www.swapi.tech/api/starships/75"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:22:44.876Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

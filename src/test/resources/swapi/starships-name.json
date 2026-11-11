@@ -1,0 +1,161 @@
+{
+  "message": "ok",
+  "result": [
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.176Z",
+        "edited": "2026-11-09T23:54:37.176Z",
+        "consumables": "1 week",
+        "name": "Y-wing",
+        "cargo_capacity": "110",
+        "passengers": "0",
+        "max_atmosphering_speed": "1000km",
+        "crew": "2",
+        "length": "14",
+        "model": "BTL Y-wing",
+        "cost_in_credits": "134999",
+        "manufacturer": "Koensayr Manufacturing",
+        "pilots": [],
+        "MGLT": "80",
+        "starship_class": "assault starfighter",
+        "hyperdrive_rating": "1.0",
+        "films": [
+          "https://www.swapi.tech/api/films/1",
+          "https://www.swapi.tech/api/films/2",
+          "https://www.swapi.tech/api/films/3"
+        ],
+        "url": "https://www.swapi.tech/api/starships/11"
+      },
+      "_id": "5f63a34fee9fd7000499be22",
+      "description": "A Starship",
+      "uid": "11",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.176Z",
+        "edited": "2026-11-09T23:54:37.176Z",
+        "consumables": "1 week",
+        "name": "X-wing",
+        "cargo_capacity": "110",
+        "passengers": "0",
+        "max_atmosphering_speed": "1050",
+        "crew": "1",
+        "length": "12.5",
+        "model": "T-65 X-wing",
+        "cost_in_credits": "149999",
+        "manufacturer": "Incom Corporation",
+        "pilots": [
+          "https://www.swapi.tech/api/people/1",
+          "https://www.swapi.tech/api/people/9",
+          "https://www.swapi.tech/api/people/18",
+          "https://www.swapi.tech/api/people/19"
+        ],
+        "MGLT": "100",
+        "starship_class": "Starfighter",
+        "hyperdrive_rating": "1.0",
+        "films": [
+          "https://www.swapi.tech/api/films/1",
+          "https://www.swapi.tech/api/films/2",
+          "https://www.swapi.tech/api/films/3"
+        ],
+        "url": "https://www.swapi.tech/api/starships/12"
+      },
+      "_id": "5f63a34fee9fd7000499be26",
+      "description": "A Starship",
+      "uid": "12",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.176Z",
+        "edited": "2026-11-09T23:54:37.176Z",
+        "consumables": "1 week",
+        "name": "A-wing",
+        "cargo_capacity": "40",
+        "passengers": "0",
+        "max_atmosphering_speed": "1300",
+        "crew": "1",
+        "length": "9.6",
+        "model": "RZ-1 A-wing Interceptor",
+        "cost_in_credits": "175000",
+        "manufacturer": "Alliance Underground Engineering, Incom Corporation",
+        "pilots": [
+          "https://www.swapi.tech/api/people/29"
+        ],
+        "MGLT": "120",
+        "starship_class": "Starfighter",
+        "hyperdrive_rating": "1.0",
+        "films": [
+          "https://www.swapi.tech/api/films/3"
+        ],
+        "url": "https://www.swapi.tech/api/starships/28"
+      },
+      "_id": "5f63a34fee9fd7000499be2b",
+      "description": "A Starship",
+      "uid": "28",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.176Z",
+        "edited": "2026-11-09T23:54:37.176Z",
+        "consumables": "1 week",
+        "name": "B-wing",
+        "cargo_capacity": "45",
+        "passengers": "0",
+        "max_atmosphering_speed": "950",
+        "crew": "1",
+        "length": "16.9",
+        "model": "A/SF-01 B-wing starfighter",
+        "cost_in_credits": "220000",
+        "manufacturer": "Slayn & Korpil",
+        "pilots": [],
+        "MGLT": "91",
+        "starship_class": "Assault Starfighter",
+        "hyperdrive_rating": "2.0",
+        "films": [
+          "https://www.swapi.tech/api/films/3"
+        ],
+        "url": "https://www.swapi.tech/api/starships/29"
+      },
+      "_id": "5f63a34fee9fd7000499be2d",
+      "description": "A Starship",
+      "uid": "29",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.176Z",
+        "edited": "2026-11-09T23:54:37.176Z",
+        "consumables": "15 hours",
+        "name": "V-wing",
+        "cargo_capacity": "60",
+        "passengers": "0",
+        "max_atmosphering_speed": "1050",
+        "crew": "1",
+        "length": "7.9",
+        "model": "Alpha-3 Nimbus-class V-wing starfighter",
+        "cost_in_credits": "102500",
+        "manufacturer": "Kuat Systems Engineering",
+        "pilots": [],
+        "MGLT": "unknown",
+        "starship_class": "starfighter",
+        "hyperdrive_rating": "1.0",
+        "films": [
+          "https://www.swapi.tech/api/films/6"
+        ],
+        "url": "https://www.swapi.tech/api/starships/75"
+      },
+      "_id": "5f63a350ee9fd7000499be41",
+      "description": "A Starship",
+      "uid": "75",
+      "__v": 2
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:21:53.936Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

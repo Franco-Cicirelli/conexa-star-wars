@@ -1,0 +1,9 @@
+{
+  "errors": "MongoServerError: Regular expression is invalid: missing terminating ] for character class",
+  "message": "Could not find person",
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:43:48.202Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

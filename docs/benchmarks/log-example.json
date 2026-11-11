@@ -1,0 +1,17 @@
+{
+  "@timestamp": "2026-11-10T23:33:22.456182-03:00",
+  "@version": "1",
+  "message": "HTTP operation completed",
+  "logger_name": "com.conexa.starwars.telemetry.HttpObservationLoggingHandler",
+  "thread_name": "http-nio-8081-exec-5",
+  "level": "INFO",
+  "level_value": 20000,
+  "traceId": "1a444d5ef62add705275a1d824e79b25",
+  "spanId": "d028acad01e0aae3",
+  "event": "swapi.client.completed",
+  "route": "/people",
+  "method": "GET",
+  "status": "200",
+  "outcome": "SUCCESS",
+  "durationMs": 264.705
+}

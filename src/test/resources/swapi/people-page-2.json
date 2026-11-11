@@ -1,0 +1,24 @@
+{
+  "message": "ok",
+  "total_records": 82,
+  "total_pages": 41,
+  "previous": "https://www.swapi.tech/api/people?page=1&limit=2",
+  "next": "https://www.swapi.tech/api/people?page=3&limit=2",
+  "results": [
+    {
+      "uid": "3",
+      "name": "R2-D2",
+      "url": "https://www.swapi.tech/api/people/3"
+    },
+    {
+      "uid": "4",
+      "name": "Darth Vader",
+      "url": "https://www.swapi.tech/api/people/4"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:21:51.980Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

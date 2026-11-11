@@ -1,0 +1,24 @@
+{
+  "message": "ok",
+  "total_records": 36,
+  "total_pages": 18,
+  "previous": "https://www.swapi.tech/api/starships?page=1&limit=2",
+  "next": "https://www.swapi.tech/api/starships?page=3&limit=2",
+  "results": [
+    {
+      "uid": "5",
+      "name": "Sentinel-class landing craft",
+      "url": "https://www.swapi.tech/api/starships/5"
+    },
+    {
+      "uid": "9",
+      "name": "Death Star",
+      "url": "https://www.swapi.tech/api/starships/9"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:21:53.116Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}
