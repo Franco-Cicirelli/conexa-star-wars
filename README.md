@@ -1,4 +1,4 @@
-# Conexa Star Wars API — Release 3 (v1.2.0)
+# Conexa Star Wars API — Release 3 (v1.2.1)
 
 Java 21, Spring Boot 4.1.2, Spring MVC, Spring Security, and RS256 JWTs.
 The catalog is fetched from SWAPI.tech. Accounts are registered in memory through

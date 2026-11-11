@@ -1,5 +1,34 @@
 # Release history
 
+## v1.2.1 — Heroku deployment preparation
+
+- Added `system.properties` with `java.runtime.version=21` and the extensionless
+  `Procfile` with `web: java -jar target/swapi-challenge.jar`.
+- Aligned Maven's final artifact name, the local benchmark launcher, and the
+  documented startup command to `swapi-challenge.jar`.
+- Kept `server.port=${PORT:8080}` so Heroku supplies the listening port, and
+  made the provider URL configurable with `SWAPI_BASE_URL` while retaining
+  https://www.swapi.tech/api as the default.
+- Migrated JWT Spring properties from `auth.jwt.*` to `app.jwt.*` in production
+  code and test overrides. Both RSA keys, issuer, and audience are required
+  environment variables; the local startup script validates all four.
+- Preserved health-only public Actuator exposure without details.
+- Renamed WelcomeController/WelcomeResponse to ApiInfoController/ApiInfoResponse
+  while preserving GET `/api/v1` and its response JSON.
+- Bumped the application version to 1.2.1. The circuit breaker, Films cache,
+  and traffic quotas from previous releases remain included.
+
+Migration: custom Spring property overrides must use `app.jwt.*`. Set
+`JWT_PRIVATE_KEY_B64`, `JWT_PUBLIC_KEY_B64`, `JWT_ISSUER`, and `JWT_AUDIENCE` in
+the deployment environment. Local `.env` files are not uploaded to Heroku.
+
+This release prepares the application for deployment; publishing it does not
+deploy a Heroku app or configure its environment variables.
+
+Validation: Maven used Temurin Java 21.0.13; `./mvnw -B clean verify` completed
+with 133 tests passed and the optional benchmark skipped. The build generated
+`target/swapi-challenge.jar`, matching the Procfile startup command.
+
 ## v1.2.0 — Release 3: SWAPI circuit breaker
 
 - Added one shared Resilience4j circuit around physical SWAPI calls across People,
