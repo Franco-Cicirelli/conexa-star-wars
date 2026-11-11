@@ -2,6 +2,8 @@ package com.conexa.starwars.auth.controller;
 
 import com.conexa.starwars.auth.security.AuthRateLimiter;
 import com.conexa.starwars.auth.service.RegistrationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -28,6 +30,10 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
+    @Operation(
+            summary = "Register an in-memory account",
+            description =
+                    "Create an account with catalog:read. One successful registration per connection IP during the instance lifetime. Accounts disappear on restart.")
     public ResponseEntity<RegistrationResponse> register(
             @Valid @RequestBody RegistrationRequest body, HttpServletRequest request) {
         if (!limiter.allow("register:" + request.getRemoteAddr())) {
@@ -42,7 +48,10 @@ public class RegistrationController {
     public record RegistrationRequest(
             @NotBlank @Size(max = 80) @Pattern(regexp = "[A-Za-z0-9][A-Za-z0-9._-]{0,79}")
                     String username,
-            @NotBlank @Size(min = 12, max = 256) String password) {
+            @Schema(format = "password", accessMode = Schema.AccessMode.WRITE_ONLY)
+                    @NotBlank
+                    @Size(min = 12, max = 256)
+                    String password) {
         @Override
         public String toString() {
             return "RegistrationRequest[redacted]";

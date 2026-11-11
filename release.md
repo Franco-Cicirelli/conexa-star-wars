@@ -1,5 +1,24 @@
 # Release history
 
+## v1.2.2 — Swagger UI and OpenAPI
+
+- Added springdoc-openapi-starter-webmvc-ui 3.2.0 for Spring Boot 4.1.x.
+- Exposed public Swagger UI at `/swagger-ui/index.html`, its assets, and the
+  OpenAPI document at `/v3/api-docs` using existing Spring Security allow rules.
+- Documented HTTP Bearer JWT authentication on catalog operations only. Login,
+  registration, and API information remain public; catalog security is unchanged.
+- Configured a relative OpenAPI server URL so interactive calls use the current
+  origin and HTTPS behind Heroku. Tokens are not persisted and external schema
+  validation is disabled.
+- Documented catalog resource values, request behavior, login/registration, and
+  password fields. Added integration tests for public UI/assets/configuration,
+  relative server URL, security requirements, and catalog rejection without JWT.
+- Bumped the Maven version to 1.2.2; the executable JAR remains
+  `target/swapi-challenge.jar`.
+
+Validation: `./mvnw -B -Dcache.benchmark=true clean verify` on Java 21 passed
+137 tests (30 unit and 107 integration tests), with no failures or skips.
+
 ## v1.2.1 — Heroku deployment preparation
 
 - Added `system.properties` with `java.runtime.version=21` and the extensionless

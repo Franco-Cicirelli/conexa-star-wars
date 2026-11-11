@@ -1,9 +1,34 @@
-# Conexa Star Wars API — Release 3 (v1.2.1)
+# Conexa Star Wars API — Release 3 (v1.2.2)
 
 Java 21, Spring Boot 4.1.2, Spring MVC, Spring Security, and RS256 JWTs.
 The catalog is fetched from SWAPI.tech. Accounts are registered in memory through
 the API and are lost on restart. PostgreSQL and Docker are not required.
 Source code, comments, documentation, and application messages are written in English.
+
+## Swagger UI and OpenAPI
+
+Springdoc 3.2.0 provides interactive documentation compatible with Spring Boot
+4.1.x. Swagger UI is public at `/swagger-ui/index.html`; the OpenAPI document is
+available at `/v3/api-docs`.
+
+- Heroku UI: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/swagger-ui/index.html
+- Heroku OpenAPI: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/v3/api-docs
+
+To query the catalog through Swagger UI:
+
+1. Create an account using POST `/api/v1/auth/register`, unless you already have
+   one on the current application instance. Registration permits one account per
+   connection IP for the instance lifetime; accounts reset on restart.
+2. Execute POST `/api/v1/auth/login` and copy only the `accessToken` value.
+3. Click **Authorize**, paste the token into `bearerAuth`, and authorize. Do not
+   include the `Bearer` prefix; Swagger UI adds it to the Authorization header.
+4. Open the catalog GET operation, select `people`, `films`, `starships`, or
+   `vehicles` in the `resource` parameter, set filters/page/size, and execute it.
+
+Catalog operations require `catalog:read` and retain their authentication, quotas,
+cache, and circuit-breaker behavior. Login and registration need no Bearer token.
+Tokens are not persisted by Swagger UI. A relative OpenAPI server URL keeps
+requests on the current HTTPS origin behind Heroku without trusting proxy headers.
 
 ## Run locally
 
