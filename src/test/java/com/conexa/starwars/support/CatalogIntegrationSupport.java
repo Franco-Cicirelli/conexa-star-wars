@@ -2,6 +2,7 @@ package com.conexa.starwars.support;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
+import com.conexa.starwars.catalog.infrastructure.swapi.FilmsCache;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -25,6 +26,7 @@ import org.springframework.test.context.DynamicPropertyRegistrar;
 @Import(CatalogIntegrationSupport.Provider.class)
 public abstract class CatalogIntegrationSupport extends IntegrationSupport {
     @Autowired protected WireMockServer swapi;
+    @Autowired protected FilmsCache filmsCache;
 
     @Value("${local.server.port}")
     protected int port;
@@ -32,6 +34,7 @@ public abstract class CatalogIntegrationSupport extends IntegrationSupport {
     @BeforeEach
     void resetProvider() {
         swapi.resetAll();
+        filmsCache.clear();
     }
 
     protected String fixture() throws Exception {

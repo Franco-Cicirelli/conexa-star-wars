@@ -14,12 +14,17 @@ public class SwapiCatalogAdapter implements CatalogGateway {
     private final SwapiClient client;
     private final SwapiResponseMapper mapper;
     private final CompleteResourceReader completeReader;
+    private final FilmsCache filmsCache;
 
     public SwapiCatalogAdapter(
-            SwapiClient client, SwapiResponseMapper mapper, CompleteResourceReader completeReader) {
+            SwapiClient client,
+            SwapiResponseMapper mapper,
+            CompleteResourceReader completeReader,
+            FilmsCache filmsCache) {
         this.client = client;
         this.mapper = mapper;
         this.completeReader = completeReader;
+        this.filmsCache = filmsCache;
     }
 
     @Override
@@ -34,7 +39,7 @@ public class SwapiCatalogAdapter implements CatalogGateway {
 
     @Override
     public List<CatalogItem> films() {
-        return mapper.collection(CatalogResource.FILMS, client.films());
+        return filmsCache.get(() -> mapper.collection(CatalogResource.FILMS, client.films()));
     }
 
     @Override
