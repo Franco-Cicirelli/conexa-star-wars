@@ -11,6 +11,7 @@ Source code, comments, documentation, and application messages are written in En
 | --- | --- |
 | Install and start locally | [Run locally](#run-locally) and [configuration reference](docs/configuration.md). |
 | Register, log in, and query the catalog | [API walkthrough](docs/api-usage.md) or [Swagger UI](#swagger-ui-and-openapi). |
+| Import ready-to-run requests | [Postman collection and local/Heroku environments](docs/postman/README.md). |
 | Understand boundaries and request processing | [Architecture and code guide](docs/architecture.md). |
 | Deploy or diagnose startup issues | [Heroku deployment and troubleshooting](docs/deployment.md). |
 | Inspect logs, metrics, traces, and measurements | [Observability](docs/observability.md). |

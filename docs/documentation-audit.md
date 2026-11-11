@@ -59,3 +59,17 @@ and deployed.
   Shell blocks were syntax-checked only; no guide examples were executed.
 - `git diff --check` passed. Captured provider fixtures and historical raw benchmark
   files are unchanged.
+
+## Postman supplement
+
+The documentation now also includes a [Postman collection](postman/README.md)
+with 30 requests in seven folders and empty local/Heroku environment templates.
+Login captures accessToken in the selected environment; catalog requests inherit
+Bearer authentication. Public requests and negative security cases override it
+explicitly. Credentials and tokens remain empty in committed exports.
+
+Validation: official Postman Collection v2.1 JSON Schema passed; both environment
+structures/empty secret values were checked; all 32 scripts parsed successfully.
+Offline script checks verified credential JSON escaping, successful token capture,
+and stale-token removal on unsuccessful login. No collection HTTP requests were
+executed against Heroku during asset validation.

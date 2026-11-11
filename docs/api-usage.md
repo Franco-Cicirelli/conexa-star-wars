@@ -160,6 +160,10 @@ does not pace traffic evenly. All state is per instance.
 
 ## Swagger UI and Postman
 
+Import the [Postman collection and environment templates](postman/README.md) for
+30 ready-to-run requests with automatic login token capture, inherited Bearer
+authentication, and response assertions. Exported credentials/tokens are empty.
+
 In Swagger UI, log in and paste only accessToken into **Authorize → bearerAuth**;
 the UI adds the Bearer prefix. Select the resource in the single catalog operation.
 Login and registration remain public. Tokens are not persisted by Swagger UI.
