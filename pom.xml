@@ -9,13 +9,23 @@
     </parent>
     <groupId>com.conexa</groupId>
     <artifactId>conexa-star-wars</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <name>conexa-star-wars</name>
     <description>Base API for Conexa Star Wars</description>
     <properties>
         <java.version>21</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-circuitbreaker</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-micrometer</artifactId>
+            <version>2.3.0</version>
+        </dependency>
         <dependency>
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-ratelimiter</artifactId>

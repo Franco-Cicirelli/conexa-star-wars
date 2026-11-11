@@ -4,7 +4,8 @@ public class CatalogFailure extends RuntimeException {
     public enum Reason {
         INVALID_RESPONSE,
         UNAVAILABLE,
-        TIMEOUT
+        TIMEOUT,
+        CIRCUIT_OPEN
     }
 
     private final Reason reason;

@@ -18,13 +18,17 @@ public class CatalogErrorHandler {
         int status =
                 switch (failure.reason()) {
                     case INVALID_RESPONSE -> 502;
-                    case UNAVAILABLE -> 503;
+                    case UNAVAILABLE, CIRCUIT_OPEN -> 503;
                     case TIMEOUT -> 504;
                 };
         var problem =
                 ProblemDetail.forStatusAndDetail(
                         HttpStatusCode.valueOf(status), "Unable to query the external catalog.");
-        problem.setProperty("code", "CATALOG_" + failure.reason().name());
+        problem.setProperty(
+                "code",
+                failure.reason() == CatalogFailure.Reason.CIRCUIT_OPEN
+                        ? "SWAPI_CIRCUIT_OPEN"
+                        : "CATALOG_" + failure.reason().name());
         return problem;
     }
 
