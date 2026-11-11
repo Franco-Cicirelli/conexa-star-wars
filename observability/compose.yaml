@@ -1,0 +1,11 @@
+services:
+  telemetry:
+    image: grafana/otel-lgtm:0.40.0
+    ports:
+      - '127.0.0.1:3000:3000'
+      - '127.0.0.1:4318:4318'
+      - '127.0.0.1:9090:9090'
+    volumes:
+      - telemetry-data:/data
+volumes:
+  telemetry-data:

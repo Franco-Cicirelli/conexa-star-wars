@@ -1,0 +1,36 @@
+{
+  "message": "ok",
+  "result": [
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "Live food tanks",
+        "name": "Sail barge",
+        "cargo_capacity": "2000000",
+        "passengers": "500",
+        "max_atmosphering_speed": "100",
+        "crew": "26",
+        "length": "30",
+        "model": "Modified Luxury Sail Barge",
+        "cost_in_credits": "285000",
+        "manufacturer": "Ubrikkian Industries Custom Vehicle Division",
+        "vehicle_class": "sail barge",
+        "pilots": [],
+        "films": [
+          "https://www.swapi.tech/api/films/3"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/24"
+      },
+      "_id": "5f63a160cf50d100047f9805",
+      "description": "A vehicle",
+      "uid": "24",
+      "__v": 2
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:22:10.831Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "message": "ok",
+  "result": [
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "unknown",
+        "name": "X-34 landspeeder",
+        "cargo_capacity": "5",
+        "passengers": "1",
+        "max_atmosphering_speed": "250",
+        "crew": "1",
+        "length": "3.4 ",
+        "model": "X-34 landspeeder",
+        "cost_in_credits": "10550",
+        "manufacturer": "SoroSuub Corporation",
+        "vehicle_class": "repulsorcraft",
+        "pilots": [],
+        "films": [
+          "https://www.swapi.tech/api/films/1"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/7"
+      },
+      "_id": "5f63a160cf50d100047f97fd",
+      "description": "A vehicle",
+      "uid": "7",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "none",
+        "name": "Snowspeeder",
+        "cargo_capacity": "10",
+        "passengers": "0",
+        "max_atmosphering_speed": "650",
+        "crew": "2",
+        "length": "4.5",
+        "model": "t-47 airspeeder",
+        "cost_in_credits": "unknown",
+        "manufacturer": "Incom corporation",
+        "vehicle_class": "airspeeder",
+        "pilots": [
+          "https://www.swapi.tech/api/people/1",
+          "https://www.swapi.tech/api/people/18"
+        ],
+        "films": [
+          "https://www.swapi.tech/api/films/2"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/14"
+      },
+      "_id": "5f63a160cf50d100047f9800",
+      "description": "A vehicle",
+      "uid": "14",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "1 day",
+        "name": "Imperial Speeder Bike",
+        "cargo_capacity": "4",
+        "passengers": "1",
+        "max_atmosphering_speed": "360",
+        "crew": "1",
+        "length": "3",
+        "model": "74-Z speeder bike",
+        "cost_in_credits": "8000",
+        "manufacturer": "Aratech Repulsor Company",
+        "vehicle_class": "speeder",
+        "pilots": [
+          "https://www.swapi.tech/api/people/1",
+          "https://www.swapi.tech/api/people/5"
+        ],
+        "films": [
+          "https://www.swapi.tech/api/films/3"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/30"
+      },
+      "_id": "5f63a160cf50d100047f9807",
+      "description": "A vehicle",
+      "uid": "30",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "unknown",
+        "name": "Sith speeder",
+        "cargo_capacity": "2",
+        "passengers": "0",
+        "max_atmosphering_speed": "180",
+        "crew": "1",
+        "length": "1.5",
+        "model": "FC-20 speeder bike",
+        "cost_in_credits": "4000",
+        "manufacturer": "Razalon",
+        "vehicle_class": "speeder",
+        "pilots": [
+          "https://www.swapi.tech/api/people/44"
+        ],
+        "films": [
+          "https://www.swapi.tech/api/films/4"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/42"
+      },
+      "_id": "5f63a160cf50d100047f980f",
+      "description": "A vehicle",
+      "uid": "42",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "unknown",
+        "name": "Koro-2 Exodrive airspeeder",
+        "cargo_capacity": "80",
+        "passengers": "1",
+        "max_atmosphering_speed": "800",
+        "crew": "1",
+        "length": "6.6",
+        "model": "Koro-2 Exodrive airspeeder",
+        "cost_in_credits": "unknown",
+        "manufacturer": "Desler Gizh Outworld Mobility Corporation",
+        "vehicle_class": "airspeeder",
+        "pilots": [
+          "https://www.swapi.tech/api/people/70"
+        ],
+        "films": [
+          "https://www.swapi.tech/api/films/5"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/45"
+      },
+      "_id": "5f63a160cf50d100047f9811",
+      "description": "A vehicle",
+      "uid": "45",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "unknown",
+        "name": "XJ-6 airspeeder",
+        "cargo_capacity": "unknown",
+        "passengers": "1",
+        "max_atmosphering_speed": "720",
+        "crew": "1",
+        "length": "6.23",
+        "model": "XJ-6 airspeeder",
+        "cost_in_credits": "unknown",
+        "manufacturer": "Narglatch AirTech prefabricated kit",
+        "vehicle_class": "airspeeder",
+        "pilots": [
+          "https://www.swapi.tech/api/people/11"
+        ],
+        "films": [
+          "https://www.swapi.tech/api/films/5"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/46"
+      },
+      "_id": "5f63a160cf50d100047f9812",
+      "description": "A vehicle",
+      "uid": "46",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "unknown",
+        "name": "Flitknot speeder",
+        "cargo_capacity": "unknown",
+        "passengers": "0",
+        "max_atmosphering_speed": "634",
+        "crew": "1",
+        "length": "2",
+        "model": "Flitknot speeder",
+        "cost_in_credits": "8000",
+        "manufacturer": "Huppla Pasa Tisc Shipwrights Collective",
+        "vehicle_class": "speeder",
+        "pilots": [
+          "https://www.swapi.tech/api/people/67"
+        ],
+        "films": [
+          "https://www.swapi.tech/api/films/5"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/55"
+      },
+      "_id": "5f63a160cf50d100047f9817",
+      "description": "A vehicle",
+      "uid": "55",
+      "__v": 2
+    },
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "unknown",
+        "name": "Emergency Firespeeder",
+        "cargo_capacity": "unknown",
+        "passengers": "unknown",
+        "max_atmosphering_speed": "unknown",
+        "crew": "2",
+        "length": "unknown",
+        "model": "Fire suppression speeder",
+        "cost_in_credits": "unknown",
+        "manufacturer": "unknown",
+        "vehicle_class": "fire suppression ship",
+        "pilots": [],
+        "films": [
+          "https://www.swapi.tech/api/films/6"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/62"
+      },
+      "_id": "5f63a160cf50d100047f981b",
+      "description": "A vehicle",
+      "uid": "62",
+      "__v": 2
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:21:58.495Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

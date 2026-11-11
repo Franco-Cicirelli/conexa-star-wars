@@ -1,0 +1,24 @@
+{
+  "message": "ok",
+  "total_records": 82,
+  "total_pages": 41,
+  "previous": "https://www.swapi.tech/api/people?page=40&limit=2",
+  "next": null,
+  "results": [
+    {
+      "uid": "82",
+      "name": "Sly Moore",
+      "url": "https://www.swapi.tech/api/people/82"
+    },
+    {
+      "uid": "83",
+      "name": "Tion Medon",
+      "url": "https://www.swapi.tech/api/people/83"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:22:45.089Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

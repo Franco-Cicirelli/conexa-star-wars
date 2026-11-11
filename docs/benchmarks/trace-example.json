@@ -1,0 +1,22 @@
+{
+  "source": "local LGTM/Tempo OTLP export",
+  "spans": [
+    {
+      "traceId": "GkRNXvYq3XBSdaHYJOebJQ==",
+      "spanId": "0CisrQHgquM=",
+      "parentSpanId": "qGdekXjPBoM=",
+      "name": "swapi /people",
+      "kind": "SPAN_KIND_CLIENT",
+      "startTimeUnixNano": "1794364402191304833",
+      "endTimeUnixNano": "1794364402457319833"
+    },
+    {
+      "traceId": "GkRNXvYq3XBSdaHYJOebJQ==",
+      "spanId": "qGdekXjPBoM=",
+      "name": "http /api/v1/people",
+      "kind": "SPAN_KIND_SERVER",
+      "startTimeUnixNano": "1794364402187546000",
+      "endTimeUnixNano": "1794364402459721500"
+    }
+  ]
+}

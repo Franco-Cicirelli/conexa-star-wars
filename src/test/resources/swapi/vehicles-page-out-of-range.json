@@ -1,0 +1,19 @@
+{
+  "message": "ok",
+  "total_records": 39,
+  "total_pages": 20,
+  "previous": "https://www.swapi.tech/api/vehicles?page=19&limit=2",
+  "next": null,
+  "results": [
+    {
+      "uid": "76",
+      "name": "AT-RT",
+      "url": "https://www.swapi.tech/api/vehicles/76"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:22:49.082Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

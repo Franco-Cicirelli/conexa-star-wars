@@ -1,0 +1,39 @@
+{
+  "message": "ok",
+  "result": [
+    {
+      "properties": {
+        "created": "2026-11-09T23:54:37.175Z",
+        "edited": "2026-11-09T23:54:37.175Z",
+        "consumables": "none",
+        "name": "Snowspeeder",
+        "cargo_capacity": "10",
+        "passengers": "0",
+        "max_atmosphering_speed": "650",
+        "crew": "2",
+        "length": "4.5",
+        "model": "t-47 airspeeder",
+        "cost_in_credits": "unknown",
+        "manufacturer": "Incom corporation",
+        "vehicle_class": "airspeeder",
+        "pilots": [
+          "https://www.swapi.tech/api/people/1",
+          "https://www.swapi.tech/api/people/18"
+        ],
+        "films": [
+          "https://www.swapi.tech/api/films/2"
+        ],
+        "url": "https://www.swapi.tech/api/vehicles/14"
+      },
+      "_id": "5f63a160cf50d100047f9800",
+      "description": "A vehicle",
+      "uid": "14",
+      "__v": 2
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:22:00.041Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

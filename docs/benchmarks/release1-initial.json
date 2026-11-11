@@ -1,0 +1,144 @@
+{
+  "sourceSha256": "dfbe3968f20b6c63d8aec2135ca17b1c53c90666d87c674eba1f5f88fd697a14",
+  "capturedAt": "2026-11-11T02:35:44.687843+00:00",
+  "environment": {
+    "os": "Darwin",
+    "release": "25.6.0",
+    "architecture": "arm64",
+    "cpuCount": 10,
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18"
+  },
+  "configuration": {
+    "profile": "observability",
+    "source": "local SWAPI fixture stub",
+    "requests": 120,
+    "concurrency": 4,
+    "warmup": 20,
+    "stubDelayMs": 100,
+    "samplingProbability": 1.0,
+    "exportersEnabled": false,
+    "connectTimeoutSeconds": 1,
+    "readTimeoutSeconds": 10,
+    "httpLogs": "logstash JSON",
+    "loadModel": "closed loop, no think time, equal rotating scenarios",
+    "fixtures": "src/test/resources/swapi",
+    "jvmOptions": "default JVM settings; no custom heap limit",
+    "requestMix": [
+      {
+        "scenario": "people.list",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "people.detail",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "people.search",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "films.list",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "starships.search",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "vehicles.search",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "provider.unavailable",
+        "expectedStatus": 503
+      },
+      {
+        "scenario": "unauthorized",
+        "expectedStatus": 401
+      }
+    ]
+  },
+  "results": {
+    "elapsedSeconds": 3.155,
+    "requestsPerSecond": 38.037,
+    "unexpectedStatuses": 0,
+    "swapiCalls": 105,
+    "httpClientMetricCount": 105.0,
+    "httpClientMetricTotalSeconds": 11.472961,
+    "httpClientMetricMeanMs": 109.266,
+    "scenarios": {
+      "people.list": {
+        "requests": 15,
+        "statuses": {
+          "200": 15
+        },
+        "p50Ms": 115.838,
+        "p95Ms": 121.252,
+        "maxMs": 121.252
+      },
+      "people.detail": {
+        "requests": 15,
+        "statuses": {
+          "200": 15
+        },
+        "p50Ms": 115.45,
+        "p95Ms": 121.654,
+        "maxMs": 121.654
+      },
+      "people.search": {
+        "requests": 15,
+        "statuses": {
+          "200": 15
+        },
+        "p50Ms": 117.075,
+        "p95Ms": 120.925,
+        "maxMs": 120.925
+      },
+      "films.list": {
+        "requests": 15,
+        "statuses": {
+          "200": 15
+        },
+        "p50Ms": 116.916,
+        "p95Ms": 121.825,
+        "maxMs": 121.825
+      },
+      "starships.search": {
+        "requests": 15,
+        "statuses": {
+          "200": 15
+        },
+        "p50Ms": 116.145,
+        "p95Ms": 121.598,
+        "maxMs": 121.598
+      },
+      "vehicles.search": {
+        "requests": 15,
+        "statuses": {
+          "200": 15
+        },
+        "p50Ms": 116.974,
+        "p95Ms": 120.705,
+        "maxMs": 120.705
+      },
+      "provider.unavailable": {
+        "requests": 15,
+        "statuses": {
+          "503": 15
+        },
+        "p50Ms": 115.861,
+        "p95Ms": 120.962,
+        "maxMs": 120.962
+      },
+      "unauthorized": {
+        "requests": 15,
+        "statuses": {
+          "401": 15
+        },
+        "p50Ms": 3.39,
+        "p95Ms": 4.303,
+        "maxMs": 4.303
+      }
+    }
+  }
+}
