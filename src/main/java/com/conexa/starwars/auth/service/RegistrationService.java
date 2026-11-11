@@ -20,6 +20,19 @@ public class RegistrationService {
         this.passwords = passwords;
     }
 
+    /**
+     * Creates an instance-local reader account from HTTP-validated input. Hashing runs outside the
+     * store monitor so it does not serialize unrelated expensive work. Uniqueness/address checks,
+     * insertion, and address reservation run together under the monitor; failures do not consume a
+     * successful-registration slot. The caller supplies the direct connection address, not an
+     * untrusted forwarded header. This operation does not issue a token.
+     *
+     * @param username validated account name
+     * @param password validated password, preserved without trimming
+     * @param clientAddress direct connection address used by the registration policy
+     * @throws UsernameAlreadyExistsException if the case-insensitive name already exists
+     * @throws RegistrationIpAlreadyUsedException if this instance already registered that address
+     */
     public void register(String username, String password, String clientAddress) {
         String hash = passwords.encode(password);
         // Username uniqueness, the IP quota and account creation form a single atomic operation.

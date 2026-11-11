@@ -14,6 +14,10 @@ import java.util.function.LongSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Collects complete candidates for literal-name fallback searches within page/time bounds. Partial
+ * or detectably inconsistent snapshots fail instead of producing misleading filtered totals.
+ */
 @Component
 class CompleteResourceReader {
     private static final int PAGE_SIZE = 10;

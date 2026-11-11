@@ -3,7 +3,10 @@ package com.conexa.starwars.auth.controller;
 import com.conexa.starwars.auth.security.AuthRateLimiter;
 import com.conexa.starwars.auth.service.RegistrationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -30,6 +33,46 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "201",
+                description = "Account created without issuing a token",
+                content = @Content(schema = @Schema(implementation = RegistrationResponse.class))),
+        @ApiResponse(
+                responseCode = "400",
+                description = "Invalid registration JSON or fields (AUTH_INVALID_REGISTRATION)",
+                content =
+                        @Content(
+                                mediaType = "application/problem+json",
+                                schema =
+                                        @Schema(
+                                                implementation =
+                                                        org.springframework.http.ProblemDetail
+                                                                .class))),
+        @ApiResponse(
+                responseCode = "409",
+                description =
+                        "Username or connection address already registered (AUTH_USERNAME_EXISTS or AUTH_REGISTRATION_IP_USED)",
+                content =
+                        @Content(
+                                mediaType = "application/problem+json",
+                                schema =
+                                        @Schema(
+                                                implementation =
+                                                        org.springframework.http.ProblemDetail
+                                                                .class))),
+        @ApiResponse(
+                responseCode = "429",
+                description = "Independent per-origin registration attempt limit exceeded",
+                content =
+                        @Content(
+                                mediaType = "application/problem+json",
+                                schema =
+                                        @Schema(
+                                                implementation =
+                                                        org.springframework.http.ProblemDetail
+                                                                .class)))
+    })
     @Operation(
             summary = "Register an in-memory account",
             description =
