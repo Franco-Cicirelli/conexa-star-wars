@@ -3,6 +3,8 @@ package com.conexa.starwars.auth.controller;
 import com.conexa.starwars.auth.controller.dto.LoginResponse;
 import com.conexa.starwars.auth.service.LoginService;
 import com.conexa.starwars.ratelimit.RequestQuotas;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -29,6 +31,10 @@ public class LoginController {
     }
 
     @PostMapping("/login")
+    @Operation(
+            summary = "Log in",
+            description =
+                    "Authenticate an existing in-memory user. Copy accessToken from the response into Swagger UI Authorize. Five attempts per minute per identity and connection IP.")
     public ResponseEntity<LoginResponse> login(
             @Valid @RequestBody LoginRequest body, HttpServletRequest request) {
         quotas.login(body.username(), request.getRemoteAddr());
@@ -42,7 +48,11 @@ public class LoginController {
     }
 
     public record LoginRequest(
-            @NotBlank @Size(max = 80) String username, @NotBlank @Size(max = 256) String password) {
+            @NotBlank @Size(max = 80) String username,
+            @Schema(format = "password", accessMode = Schema.AccessMode.WRITE_ONLY)
+                    @NotBlank
+                    @Size(max = 256)
+                    String password) {
         @Override
         public String toString() {
             return "LoginRequest[redacted]";

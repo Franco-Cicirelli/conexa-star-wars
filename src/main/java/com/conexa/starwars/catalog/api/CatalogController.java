@@ -4,6 +4,10 @@ import com.conexa.starwars.catalog.application.CatalogPage;
 import com.conexa.starwars.catalog.application.CatalogResource;
 import com.conexa.starwars.catalog.application.CatalogService;
 import com.conexa.starwars.ratelimit.RequestQuotas;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class CatalogController {
     private final CatalogService service;
     private final RequestQuotas quotas;
@@ -41,8 +46,22 @@ public class CatalogController {
     }
 
     @GetMapping("/api/v1/{resource:people|films|starships|vehicles}")
+    @Operation(
+            summary = "Query the Star Wars catalog",
+            description =
+                    "List a resource with pagination and optional UID/name filters. Both filters must match when combined. Requires catalog:read; authorized requests, including cache hits, consume the per-user quota.")
     public CatalogPage list(
-            @PathVariable String resource,
+            @Parameter(
+                            schema =
+                                    @Schema(
+                                            allowableValues = {
+                                                "people",
+                                                "films",
+                                                "starships",
+                                                "vehicles"
+                                            }))
+                    @PathVariable
+                    String resource,
             @RequestParam(defaultValue = "1") @Min(1) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(10) int size,
             @RequestParam(required = false) @Pattern(regexp = "0*[1-9][0-9]*") String id,
@@ -50,7 +69,7 @@ public class CatalogController {
                     @Size(min = 1, max = 80)
                     @Pattern(regexp = "(?s).*\\S.*")
                     String name,
-            Authentication authentication) {
+            @Parameter(hidden = true) Authentication authentication) {
         quotas.catalog(authentication.getName());
         return service.find(
                 CatalogResource.valueOf(resource.toUpperCase(Locale.ROOT)), page, size, id, name);
