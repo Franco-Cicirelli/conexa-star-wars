@@ -1,4 +1,4 @@
-# Conexa Star Wars API — Release 1
+# Conexa Star Wars API — Release 2 (v1.1.0)
 
 Java 21, Spring Boot 4.1.2, Spring MVC, Spring Security, and RS256 JWTs.
 The catalog is fetched from SWAPI.tech. Accounts are registered in memory through
@@ -90,9 +90,42 @@ IP share this quota. Restarting clears both accounts and registered IP addresses
 Before deployment behind a proxy, explicitly define which proxy is trusted and
 how the client IP is resolved.
 
-Login and registration also have separate limits of 10 attempts per minute and
-remote address, per instance; exceeding them returns 429. A deployment with
-multiple instances needs a shared gateway limit and appropriate user storage.
+Login allows five attempts per minute per normalized identity and independently
+per connection IP. Both checks run before authentication/password hashing.
+Registration retains its independent limit of ten attempts per minute per IP.
+All limits are instance-local.
+
+### Catalog and login quotas
+
+The catalog shares a quota of 60 requests per minute per authenticated JWT subject
+across People, Films, Starships, and Vehicles. Authentication and scope checks run
+first; authorized requests consume quota before cache lookup or SWAPI access.
+Films cache hits therefore count against the same quota. Missing/invalid tokens
+return 401 and insufficient scope returns 403 without consuming catalog permits.
+
+Login and catalog use Resilience4j with an immediate acquisition timeout of zero.
+Each refresh cycle permits a burst of five login attempts or 60 catalog queries.
+Two bursts on opposite sides of a cycle boundary can occur close together: this
+is a periodic quota, not a sliding-window limit or evenly paced traffic.
+
+Exhaustion returns 429 with `application/problem+json`, title `Request quota exceeded`,
+code `RATE_LIMIT_EXCEEDED`, and `Retry-After: 60`. Retry-After is a conservative full
+refresh period in whole seconds, not an exact countdown. No caller waits for a new
+window. Provider-side 429 responses still map to 503 through the catalog adapter.
+
+Each of the three registries (login identities, login origins, catalog subjects)
+holds at most 10,000 entries. Cleanup runs on access after a period or when full,
+removing only identities inactive for at least a complete period. Full registries
+reject new identities with 429 instead of evicting active quotas. Entries and
+permits reset on restart. Identity values are not used as metric labels or logs.
+
+Configuration: `quota.login.permits=5`, `quota.catalog.permits=60`,
+`quota.refresh-period=1m`, and `quota.maximum-identities=10000`.
+`server.forward-headers-strategy=none` prevents arbitrary forwarded headers from
+changing the connection origin. A global quota across instances requires shared
+coordination; trusted proxy handling must be explicitly designed before enabling it.
+
+Implementation reference: [Resilience4j RateLimiter](https://resilience4j.readme.io/docs/ratelimiter).
 
 To reuse the token in Postman, add this to login's **Scripts → Post-response**:
 
@@ -191,7 +224,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 SWAPI interprets names as regular expressions. For regex metacharacters, the adapter
 reads pages of 10 with a limit of 20 pages and a 30-second budget, checked before
 and after each call. It does not return partial totals or snapshots with inconsistent
-metadata or duplicate UIDs. In-flight calls retain their own timeout. No cache was added.
+metadata or duplicate UIDs. In-flight calls retain their own timeout.
+
+Films use a local Caffeine cache for the complete validated collection. The cache
+uses the stable key `films:complete`, expires entries five minutes after writing,
+and has a maximum size of one. Each request still applies its own name filter and
+page locally. Cache hits, misses, load failures, and evictions are registered in
+Micrometer. The cache is instance-local and is empty after a restart.
 
 The base URL is `https://www.swapi.tech/api`; requests cannot choose the upstream
 host. Boot's `RestClient.Builder` uses a 1s connection timeout and a 10s read timeout.
@@ -212,14 +251,15 @@ source scripts/java-env.sh
 ./mvnw spotless:apply   # Java AOSP formatting, 4 spaces.
 ./mvnw -B test          # Unit tests.
 ./mvnw -B clean verify  # Unit tests, integration tests, and formatting checks.
-java -jar target/conexa-star-wars-0.0.1-SNAPSHOT.jar  # Export the environment first.
+java -jar target/conexa-star-wars-1.1.0.jar  # Export the environment first.
 ```
 
 Tests do not require Docker, a database, or the development `.env`. Test RSA keys,
 passwords, and hashes are generated in memory; WireMock replaces SWAPI.
-The verified suite contains **113 tests**: 19 unit tests and 94 integration tests,
-with no failures, plus the Spotless check. Compilation targets Java 21; local
-verification used IntelliJ's JDK 25.
+The Release 2 suite includes quota exhaustion, renewal, identity separation,
+bounded-registry cleanup, security ordering, and Films cache-hit accounting.
+The HTTP cache benchmark is opt-in with `-Dcache.benchmark=true`.
+Compilation targets Java 21.
 
 | Component | Responsibility |
 | --- | --- |

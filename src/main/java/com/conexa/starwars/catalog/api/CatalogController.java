@@ -3,12 +3,14 @@ package com.conexa.starwars.catalog.api;
 import com.conexa.starwars.catalog.application.CatalogPage;
 import com.conexa.starwars.catalog.application.CatalogResource;
 import com.conexa.starwars.catalog.application.CatalogService;
+import com.conexa.starwars.ratelimit.RequestQuotas;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.beans.PropertyEditorSupport;
 import java.util.Locale;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CatalogController {
     private final CatalogService service;
+    private final RequestQuotas quotas;
 
-    public CatalogController(CatalogService service) {
+    public CatalogController(CatalogService service, RequestQuotas quotas) {
         this.service = service;
+        this.quotas = quotas;
     }
 
     @InitBinder
@@ -45,7 +49,9 @@ public class CatalogController {
             @RequestParam(required = false)
                     @Size(min = 1, max = 80)
                     @Pattern(regexp = "(?s).*\\S.*")
-                    String name) {
+                    String name,
+            Authentication authentication) {
+        quotas.catalog(authentication.getName());
         return service.find(
                 CatalogResource.valueOf(resource.toUpperCase(Locale.ROOT)), page, size, id, name);
     }

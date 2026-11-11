@@ -59,7 +59,7 @@ def main():
     for key in ('JWT_PRIVATE_KEY_B64', 'JWT_PUBLIC_KEY_B64'):
         if not os.environ.get(key):
             parser.error('Export .env before running; missing ' + key)
-    jar = ROOT / 'target/conexa-star-wars-0.0.1-SNAPSHOT.jar'
+    jar = ROOT / 'target/conexa-star-wars-1.1.0.jar'
     if not jar.exists():
         parser.error('Build the application JAR first with ./mvnw verify')
     calls = []
