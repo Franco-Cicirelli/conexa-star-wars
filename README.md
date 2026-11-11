@@ -191,7 +191,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 SWAPI interprets names as regular expressions. For regex metacharacters, the adapter
 reads pages of 10 with a limit of 20 pages and a 30-second budget, checked before
 and after each call. It does not return partial totals or snapshots with inconsistent
-metadata or duplicate UIDs. In-flight calls retain their own timeout. No cache was added.
+metadata or duplicate UIDs. In-flight calls retain their own timeout.
+
+Films use a local Caffeine cache for the complete validated collection. The cache
+uses the stable key `films:complete`, expires entries five minutes after writing,
+and has a maximum size of one. Each request still applies its own name filter and
+page locally. Cache hits, misses, load failures, and evictions are registered in
+Micrometer. The cache is instance-local and is empty after a restart.
 
 The base URL is `https://www.swapi.tech/api`; requests cannot choose the upstream
 host. Boot's `RestClient.Builder` uses a 1s connection timeout and a 10s read timeout.
