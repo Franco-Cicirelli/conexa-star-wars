@@ -1,4 +1,4 @@
-# Conexa Star Wars API — Release 3 (v1.2.0)
+# Conexa Star Wars API — Release 3 (v1.2.1)
 
 Java 21, Spring Boot 4.1.2, Spring MVC, Spring Security, and RS256 JWTs.
 The catalog is fetched from SWAPI.tech. Accounts are registered in memory through
@@ -29,8 +29,9 @@ source scripts/java-env.sh
 Setup generates a 2048-bit RSA key pair and stores the keys in `.env` and `.secrets/`,
 with private permissions and Git ignore rules. It does not overwrite an existing
 environment. Do not share these files. The application starts without users;
-create accounts through registration. Only JWT keys are required: `DEMO_USERNAME`,
-`DEMO_PASSWORD_HASH`, and a preconfigured password are not needed. Any legacy demo
+create accounts through registration. JWT keys, `JWT_ISSUER`, and `JWT_AUDIENCE`
+are required. `DEMO_USERNAME`, `DEMO_PASSWORD_HASH`, and a preconfigured password
+are not needed. Any legacy demo
 variables still present do not create accounts.
 
 `java-env.sh` uses the configured JDK or the JDK bundled with IntelliJ IDEA.
@@ -155,7 +156,7 @@ and mandatory claims; it validates timestamps and expiration without additional 
 | GET `/actuator/health` | Public, without internal components or details. |
 | GET `/swagger-ui/**`, `/swagger-ui.html`, `/v3/api-docs/**` | Publicly permitted; Swagger UI and OpenAPI are not installed in this delivery yet. |
 | GET `/api/v1/people`, `/films`, `/starships`, `/vehicles` | Valid Bearer token and `SCOPE_catalog:read`. |
-| GET `/api/v1` | Public welcome endpoint. |
+| GET `/api/v1` | Public API information endpoint. |
 
 Authentication is stateless and uses only the Bearer header; no session cookies
 are used. CSRF is disabled only for the `/api/**` chain. Other routes retain CSRF
@@ -284,7 +285,7 @@ source scripts/java-env.sh
 ./mvnw spotless:apply   # Java AOSP formatting, 4 spaces.
 ./mvnw -B test          # Unit tests.
 ./mvnw -B clean verify  # Unit tests, integration tests, and formatting checks.
-java -jar target/conexa-star-wars-1.2.0.jar  # Export the environment first.
+java -jar target/swapi-challenge.jar  # Export the environment first.
 ```
 
 Tests do not require Docker, a database, or the development `.env`. Test RSA keys,
@@ -328,7 +329,7 @@ The functional suite still runs without Docker or a collector.
 com.conexa.starwars
 ├── ConexaStarWarsApplication
 ├── api
-│   └── WelcomeController
+│   └── ApiInfoController
 ├── auth
 │   ├── controller
 │   │   ├── LoginController

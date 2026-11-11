@@ -36,8 +36,8 @@ public class JwtConfiguration {
 
     @Bean
     RSAKey signingKey(
-            @Value("${auth.jwt.private-key-b64}") String privateKey,
-            @Value("${auth.jwt.public-key-b64}") String publicKey)
+            @Value("${app.jwt.private-key-b64}") String privateKey,
+            @Value("${app.jwt.public-key-b64}") String publicKey)
             throws Exception {
         var factory = KeyFactory.getInstance("RSA");
         var secret =
@@ -64,8 +64,8 @@ public class JwtConfiguration {
     @Bean
     JwtDecoder jwtDecoder(
             RSAKey key,
-            @Value("${auth.jwt.issuer}") String issuer,
-            @Value("${auth.jwt.audience}") String audience,
+            @Value("${app.jwt.issuer}") String issuer,
+            @Value("${app.jwt.audience}") String audience,
             Clock clock)
             throws Exception {
         var decoder =
