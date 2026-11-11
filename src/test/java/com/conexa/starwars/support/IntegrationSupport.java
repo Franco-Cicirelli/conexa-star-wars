@@ -23,13 +23,13 @@ public abstract class IntegrationSupport {
     @DynamicPropertySource
     static void securityProperties(DynamicPropertyRegistry registry) {
         registry.add(
-                "auth.jwt.private-key-b64",
+                "app.jwt.private-key-b64",
                 () -> Base64.getEncoder().encodeToString(KEYS.getPrivate().getEncoded()));
         registry.add(
-                "auth.jwt.public-key-b64",
+                "app.jwt.public-key-b64",
                 () -> Base64.getEncoder().encodeToString(KEYS.getPublic().getEncoded()));
-        registry.add("auth.jwt.issuer", () -> "test-issuer");
-        registry.add("auth.jwt.audience", () -> "test-audience");
+        registry.add("app.jwt.issuer", () -> "test-issuer");
+        registry.add("app.jwt.audience", () -> "test-audience");
     }
 
     @Autowired private org.springframework.security.provisioning.InMemoryUserDetailsManager users;

@@ -25,8 +25,8 @@ public class JwtAccessTokenIssuer implements AccessTokenIssuer {
     public JwtAccessTokenIssuer(
             JwtEncoder encoder,
             Clock clock,
-            @Value("${auth.jwt.issuer}") String issuer,
-            @Value("${auth.jwt.audience}") String audience) {
+            @Value("${app.jwt.issuer}") String issuer,
+            @Value("${app.jwt.audience}") String audience) {
         this.encoder = encoder;
         this.clock = clock;
         this.issuer = issuer;
