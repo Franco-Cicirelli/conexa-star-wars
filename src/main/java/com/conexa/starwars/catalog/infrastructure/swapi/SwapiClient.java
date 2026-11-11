@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.http.HttpTimeoutException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +28,17 @@ import org.springframework.web.util.UriBuilder;
 @Component
 class SwapiClient {
     private final RestClient client;
+    private final SwapiCircuit circuit;
+    private final SwapiResponseMapper mapper;
 
-    SwapiClient(RestClient.Builder builder, @Value("${swapi.base-url}") String baseUrl) {
+    SwapiClient(
+            RestClient.Builder builder,
+            @Value("${swapi.base-url}") String baseUrl,
+            SwapiCircuit circuit,
+            SwapiResponseMapper mapper) {
         client = builder.baseUrl(baseUrl).build();
+        this.circuit = circuit;
+        this.mapper = mapper;
     }
 
     PageEnvelope page(CatalogResource resource, int page, int size) {
@@ -39,11 +48,15 @@ class SwapiClient {
                                 .queryParam("page", page)
                                 .queryParam("limit", size)
                                 .build(resource.path()),
-                PageEnvelope.class);
+                PageEnvelope.class,
+                response -> mapper.page(response, page, size));
     }
 
     CollectionEnvelope films() {
-        return read(uri -> uri.path("/films").build(), CollectionEnvelope.class);
+        return read(
+                uri -> uri.path("/films").build(),
+                CollectionEnvelope.class,
+                response -> mapper.collection(CatalogResource.FILMS, response));
     }
 
     CollectionEnvelope search(CatalogResource resource, String name) {
@@ -52,15 +65,45 @@ class SwapiClient {
                         uri.path("/{resource}/")
                                 .queryParam("name", "{name}")
                                 .build(Map.of("resource", resource.path(), "name", name)),
-                CollectionEnvelope.class);
+                CollectionEnvelope.class,
+                response -> mapper.collection(resource, response));
     }
 
     Optional<DetailItem> detail(CatalogResource resource, String id) {
-        return translateErrors(() -> readDetail(resource, id));
+        return circuit.call(
+                () -> translateErrors(() -> readDetail(resource, id)), Optional::isEmpty);
     }
 
-    private <T> T read(Function<UriBuilder, URI> uri, Class<T> responseType) {
-        return translateErrors(() -> client.get().uri(uri).retrieve().body(responseType));
+    private <T> T read(Function<UriBuilder, URI> uri, Class<T> responseType, Consumer<T> validate) {
+        return circuit.call(
+                () ->
+                        translateErrors(
+                                () -> {
+                                    T response =
+                                            client.get().uri(uri).retrieve().body(responseType);
+                                    validate.accept(response);
+                                    return response;
+                                }),
+                this::isConfirmedAbsence);
+    }
+
+    private boolean isConfirmedAbsence(Object response) {
+        if (response instanceof CollectionEnvelope collection) {
+            return "ok".equals(collection.message())
+                    && collection.result() != null
+                    && collection.result().isEmpty()
+                    && collection.next() == null
+                    && collection.totalRecords() == null
+                    && collection.totalPages() == null;
+        }
+        if (response instanceof PageEnvelope page) {
+            return "ok".equals(page.message())
+                    && page.results() != null
+                    && page.results().isEmpty()
+                    && Long.valueOf(0).equals(page.totalRecords())
+                    && Integer.valueOf(0).equals(page.totalPages());
+        }
+        return false;
     }
 
     private Optional<DetailItem> readDetail(CatalogResource resource, String id) {
@@ -76,6 +119,7 @@ class SwapiClient {
                     || !id.equals(response.result().uid())) {
                 throw invalidResponse();
             }
+            mapper.detail(resource, response.result());
             return Optional.of(response.result());
         } catch (RestClientResponseException exception) {
             if (exception.getStatusCode().value() != 404) {

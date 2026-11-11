@@ -1,5 +1,31 @@
 # Release 1 / Step 08: logs and telemetry
 
+## Release 3: SWAPI circuit signals
+
+The shared `swapi` circuit emits `swapi.circuit.transition` structured events with
+`circuit`, `fromState`, and `toState`. CLOSED → OPEN indicates sustained eligible
+failures; OPEN → HALF_OPEN marks the first admitted probe after the wait;
+HALF_OPEN → CLOSED or OPEN records recovery or renewed rejection.
+
+The local/private metrics listener also exposes the Micrometer binders below:
+
+| Meter | Bounded dimensions | Meaning |
+| --- | --- | --- |
+| `resilience4j.circuitbreaker.state` | name=swapi, state | State gauge; the active state has value 1. |
+| `resilience4j.circuitbreaker.calls` | name=swapi, kind | Successful, failed, or ignored exception observations. |
+| `resilience4j.circuitbreaker.failure.rate` | name=swapi | Failure percentage once the minimum sample is available. |
+| `resilience4j.circuitbreaker.not.permitted.calls` | name=swapi, kind | Calls rejected by the circuit without external I/O. |
+
+Confirmed empty results release their probe without adding a success or failure;
+they do not increment the calls timer. Cache hits and local security/quota
+rejections do not reach the circuit. HTTP 503 alone is therefore insufficient to
+distinguish provider failures from OPEN rejection: use `CATALOG_UNAVAILABLE`
+versus `SWAPI_CIRCUIT_OPEN` and the circuit signals.
+
+WireMock tests capture logs and state gauges through opening and recovery using
+the default ten-second wait and an injected controlled clock. Historical Release 1
+measurements below retain their original configuration and results.
+
 ## Signals and instrumentation
 
 Actuator and Micrometer produce `http.server.requests` for the API and
