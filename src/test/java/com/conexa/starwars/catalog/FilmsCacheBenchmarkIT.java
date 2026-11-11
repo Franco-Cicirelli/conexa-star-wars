@@ -55,6 +55,7 @@ class FilmsCacheBenchmarkIT extends CatalogIntegrationSupport {
                 for (boolean cached :
                         round % 2 == 0 ? List.of(false, true) : List.of(true, false)) {
                     filmsCache.clear();
+                    quotas.clear();
                     swapi.resetRequests();
                     double hitsBefore = gets("hit");
                     double missesBefore = gets("miss");

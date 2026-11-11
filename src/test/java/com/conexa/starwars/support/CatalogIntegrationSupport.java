@@ -27,6 +27,7 @@ import org.springframework.test.context.DynamicPropertyRegistrar;
 public abstract class CatalogIntegrationSupport extends IntegrationSupport {
     @Autowired protected WireMockServer swapi;
     @Autowired protected FilmsCache filmsCache;
+    @Autowired protected com.conexa.starwars.ratelimit.RequestQuotas quotas;
 
     @Value("${local.server.port}")
     protected int port;
@@ -35,6 +36,7 @@ public abstract class CatalogIntegrationSupport extends IntegrationSupport {
     void resetProvider() {
         swapi.resetAll();
         filmsCache.clear();
+        quotas.clear();
     }
 
     protected String fixture() throws Exception {
