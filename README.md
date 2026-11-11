@@ -1,4 +1,4 @@
-# Conexa Star Wars API — Release 2 (v1.1.0)
+# Conexa Star Wars API — Release 3 (v1.2.0)
 
 Java 21, Spring Boot 4.1.2, Spring MVC, Spring Security, and RS256 JWTs.
 The catalog is fetched from SWAPI.tech. Accounts are registered in memory through
@@ -238,6 +238,39 @@ To increase the read timeout for one run:
 `SPRING_HTTP_CLIENTS_READ_TIMEOUT=15s ./mvnw spring-boot:run`.
 Errors use `application/problem+json` and stable codes: invalid input 400,
 incompatible response 502, unavailability/quota 503, and timeout 504.
+
+### Shared SWAPI circuit breaker (Release 3)
+
+All physical SWAPI calls share one Resilience4j circuit named `swapi`. Its
+count-based sliding window holds ten eligible calls and requires at least five.
+A failure rate of 50% or more opens the circuit. Connection failures, client
+timeouts, HTTP 429, and HTTP 5xx count as availability failures. Confirmed absence,
+incompatible responses, invalid input, authentication/authorization failures,
+and local quota rejections do not affect the failure ratio. Provider envelopes
+are validated before a probe can be recorded as successful.
+
+OPEN rejects external work immediately with HTTP 503 and
+`code: SWAPI_CIRCUIT_OPEN`, without contacting SWAPI. After ten seconds, the next
+eligible call transitions to HALF_OPEN, allowing at most two probes. Two valid
+responses close the circuit; a failure rate of at least 50% across the probes
+reopens it. Ignored outcomes release their permit without completing a probe.
+There is no background recovery request. Configure the wait through
+`swapi.circuit.open-wait=10s`; client connection/read timeouts remain enforced.
+
+Security and per-user quotas still apply first. A valid Films cache hit does not
+consult or update the circuit and can return 200 while SWAPI is unavailable.
+A cold/expired Films cache must use the protected external call and receives
+503 while the circuit rejects calls. This is bounded cache freshness, not stale
+data served beyond expiry. The circuit is local to one process and resets on restart.
+
+Micrometer exposes `resilience4j.circuitbreaker.state`,
+`resilience4j.circuitbreaker.calls`, `resilience4j.circuitbreaker.failure.rate`,
+and `resilience4j.circuitbreaker.not.permitted.calls`, with the fixed name `swapi`.
+State transitions emit structured `swapi.circuit.transition` events with
+`fromState` and `toState`; no request identifiers or provider payloads are logged.
+Metrics remain restricted to the existing local observability profile.
+
+Reference: [Resilience4j CircuitBreaker](https://resilience4j.readme.io/docs/circuitbreaker).
 Human-readable messages are in English; machine-readable codes remain unchanged.
 
 The [SWAPI response matrix](docs/swapi-response-matrix.md) and fixtures in
@@ -251,7 +284,7 @@ source scripts/java-env.sh
 ./mvnw spotless:apply   # Java AOSP formatting, 4 spaces.
 ./mvnw -B test          # Unit tests.
 ./mvnw -B clean verify  # Unit tests, integration tests, and formatting checks.
-java -jar target/conexa-star-wars-1.1.0.jar  # Export the environment first.
+java -jar target/conexa-star-wars-1.2.0.jar  # Export the environment first.
 ```
 
 Tests do not require Docker, a database, or the development `.env`. Test RSA keys,

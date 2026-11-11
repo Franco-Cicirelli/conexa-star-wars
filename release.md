@@ -1,5 +1,38 @@
 # Release history
 
+## v1.2.0 — Release 3: SWAPI circuit breaker
+
+- Added one shared Resilience4j circuit around physical SWAPI calls across People,
+  Films, Starships, and Vehicles, including paginated fallback reads.
+- Configured a ten-call count-based window, minimum five calls, 50% failure
+  threshold, ten-second OPEN wait, and two HALF_OPEN probe permits.
+- Recorded connection failures, timeouts, provider 429, and provider 5xx. Confirmed
+  absence, incompatible responses, invalid requests, and local security/quota
+  rejections do not influence the failure ratio.
+- Validated envelopes before recording successful probes. Ignored outcomes
+  release permits without recovering the circuit.
+- Returned 503 with `SWAPI_CIRCUIT_OPEN` on circuit rejection without contacting
+  SWAPI. Existing timeouts and external failure mappings remain in place.
+- Kept current Films cache hits available during an outage; hits do not update
+  the circuit. Cold or expired cache loads use the protected call.
+- Bound circuit metrics to Micrometer and logged structured state transitions
+  without provider payloads or identity labels. Public metric access is unchanged.
+- Added unit and WireMock tests covering thresholds, rolling windows, shared
+  rejection across resources, successful recovery, failed probes, two-permit
+  HALF_OPEN admission, ignored results, local rejections, cached reads, timeout/
+  connection errors, metrics, and logs. Tests advance a controlled clock through
+  the configured ten-second wait and reset circuit state between test cases.
+- Set the application/JAR version to 1.2.0 and updated the benchmark launcher.
+
+Operational scope: the circuit is per process and resets on restart. After the
+OPEN wait, a new request triggers HALF_OPEN; no background probe runs. Two
+completed probes decide recovery, and ignored absence/errors do not count as
+completed probes. A valid cache entry is used only within its existing TTL.
+
+Validation command: `./mvnw -B -Dcache.benchmark=true clean verify`.
+The local run passed 134 tests (30 unit and 104 integration tests), including
+the opt-in cache benchmark, with no failures or skips.
+
 ## v1.1.0 — Release 2: Films cache and traffic quotas
 
 ### Step 12: traffic quotas

@@ -28,6 +28,7 @@ public abstract class CatalogIntegrationSupport extends IntegrationSupport {
     @Autowired protected WireMockServer swapi;
     @Autowired protected FilmsCache filmsCache;
     @Autowired protected com.conexa.starwars.ratelimit.RequestQuotas quotas;
+    @Autowired protected io.github.resilience4j.circuitbreaker.CircuitBreaker circuit;
 
     @Value("${local.server.port}")
     protected int port;
@@ -37,6 +38,7 @@ public abstract class CatalogIntegrationSupport extends IntegrationSupport {
         swapi.resetAll();
         filmsCache.clear();
         quotas.clear();
+        circuit.reset();
     }
 
     protected String fixture() throws Exception {
