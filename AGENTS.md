@@ -27,6 +27,8 @@ translate captured third-party data or alter recorded measurements.
 - `auth.security` contains Spring Security configuration and attempt limiting.
 - `auth.exception` contains registration exceptions only; HTTP handlers belong to `auth.controller`.
 - `telemetry` contains conventions, logs, metrics, and observability configuration.
+- `ratelimit` owns bounded login/catalog identity registries and local quota errors.
+- `catalog.infrastructure.swapi` also owns the Films cache and shared provider circuit; keep security/quota checks ahead of cache access.
 
 Use constructor injection and records for immutable DTOs where appropriate. Reuse
 the catalog flow across resources while keeping SWAPI differences explicit. Limit
@@ -71,8 +73,8 @@ Use long for local offsets. A simple listing uses one external call and that pag
 - Issue RS256 JWTs lasting 15 minutes. Validate signature, issuer, audience, and expiration. Use stateless Bearer-header authentication and require SCOPE_catalog:read. Missing/invalid tokens return 401; valid tokens without the permission return 403.
 - Disable CSRF only for the API chain using Bearer headers exclusively. Revisit CSRF protection if session cookies are introduced.
 - Publicly allow registration/login POSTs, health GET without details, and GETs for `/swagger-ui/**`, `/swagger-ui.html`, and `/v3/api-docs/**`. Public demos need separate registration/login attempt limits and generic invalid-credential errors.
-- Load JWT_PRIVATE_KEY_B64 and JWT_PUBLIC_KEY_B64 from the environment, with different key pairs per environment. Private keys use PKCS#8; public keys use X.509 SubjectPublicKeyInfo. Version placeholders in .env.example and ignore .env and .secrets/. Keep passwords, keys, and tokens out of commits, fixtures, logs, and public documentation.
-- Do not add JDBC, Flyway, or PostgreSQL solely for this release's in-memory login. Demo credentials are not required in the environment; JWT keys are configuration.
+- Load JWT_PRIVATE_KEY_B64, JWT_PUBLIC_KEY_B64, JWT_ISSUER, and JWT_AUDIENCE from the environment under app.jwt properties. Use different key pairs per environment. Private keys use PKCS#8; public keys use X.509 SubjectPublicKeyInfo. Version placeholders in .env.example and ignore .env and .secrets/. Keep passwords, keys, and tokens out of commits, fixtures, logs, and public documentation.
+- Do not add JDBC, Flyway, or PostgreSQL solely for this release's in-memory login. Demo credentials are not required in the environment; JWT keys, issuer, and audience are configuration.
 
 ## Development and tests
 

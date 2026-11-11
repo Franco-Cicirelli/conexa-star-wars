@@ -5,6 +5,19 @@ The catalog is fetched from SWAPI.tech. Accounts are registered in memory throug
 the API and are lost on restart. PostgreSQL and Docker are not required.
 Source code, comments, documentation, and application messages are written in English.
 
+## Documentation map
+
+| Goal | Guide |
+| --- | --- |
+| Install and start locally | [Run locally](#run-locally) and [configuration reference](docs/configuration.md). |
+| Register, log in, and query the catalog | [API walkthrough](docs/api-usage.md) or [Swagger UI](#swagger-ui-and-openapi). |
+| Import ready-to-run requests | [Postman collection and local/Heroku environments](docs/postman/README.md). |
+| Understand boundaries and request processing | [Architecture and code guide](docs/architecture.md). |
+| Deploy or diagnose startup issues | [Heroku deployment and troubleshooting](docs/deployment.md). |
+| Inspect logs, metrics, traces, and measurements | [Observability](docs/observability.md). |
+| Review provider behavior and changes between releases | [SWAPI response matrix](docs/swapi-response-matrix.md) and [release history](release.md). |
+| Review this documentation assessment | [Documentation audit](docs/documentation-audit.md). |
+
 ## Swagger UI and OpenAPI
 
 Springdoc 3.2.0 provides interactive documentation compatible with Spring Boot
@@ -15,8 +28,8 @@ available at `/v3/api-docs`.
 - Heroku OpenAPI: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/v3/api-docs
 
 Deployment verified on November 11, 2026: application version **1.2.2**, Heroku
-release **v5**, source commit `78231ec4d503123f9d79d61cee66077f6e6a7d41`.
-[Pre-deployment CI](https://github.com/Franco-Cicirelli/conexa-star-wars/actions/runs/43059482719)
+release **v6**, source commit `e7a02aea26ec0b8e04351165e94621cae37fc421` from main.
+[Pre-deployment CI](https://github.com/Franco-Cicirelli/conexa-star-wars/actions/runs/43062049705)
 passed build/tests/coverage and Trivy. Live HTTPS checks returned 200 for Swagger
 UI, its JavaScript asset, OpenAPI, Swagger configuration, health, login, and an
 authenticated People query; the same catalog query without a token returned 401.
@@ -38,6 +51,13 @@ Tokens are not persisted by Swagger UI. A relative OpenAPI server URL keeps
 requests on the current HTTPS origin behind Heroku without trusting proxy headers.
 
 ## Run locally
+
+Prerequisites: JDK 21 (verify with `java -version` and `./mvnw -v`), Git, and
+OpenSSL for key generation. Maven Wrapper downloads Maven and dependencies on
+first use, requiring Internet access. Docker and PostgreSQL are not required.
+The curl walkthrough additionally uses curl and jq. The supplied shell helpers
+target macOS/Linux; Windows users can run `mvnw.cmd` with equivalent environment
+variables and externally generated RSA keys.
 
 From the project root on macOS:
 
@@ -63,8 +83,7 @@ with private permissions and Git ignore rules. It does not overwrite an existing
 environment. Do not share these files. The application starts without users;
 create accounts through registration. JWT keys, `JWT_ISSUER`, and `JWT_AUDIENCE`
 are required. `DEMO_USERNAME`, `DEMO_PASSWORD_HASH`, and a preconfigured password
-are not needed. Any legacy demo
-variables still present do not create accounts.
+are not needed. Any legacy demo variables still present do not create accounts.
 
 `java-env.sh` uses the configured JDK or the JDK bundled with IntelliJ IDEA.
 The API listens at http://localhost:8080; stop it with `Ctrl+C`. If the port is
@@ -118,10 +137,12 @@ Even simultaneous requests from the same IP create at most one account. Existing
 accounts can continue logging in normally.
 
 The address comes from the connection's `getRemoteAddr()`, not the JSON body or
-client-supplied `Forwarded` or `X-Forwarded-For` headers. Users sharing an outgoing
-IP share this quota. Restarting clears both accounts and registered IP addresses.
-Before deployment behind a proxy, explicitly define which proxy is trusted and
-how the client IP is resolved.
+client-supplied `Forwarded` or `X-Forwarded-For` headers. Users sharing a direct
+connection address share this quota. With forwarded-header processing disabled,
+a Heroku router address may represent multiple end users; this policy does not
+guarantee one account per real browser or public client IP. Restarting clears
+accounts and registered addresses. Trusted proxy handling requires a separate,
+explicit design before enabling forwarded-header processing.
 
 Login allows five attempts per minute per normalized identity and independently
 per connection IP. Both checks run before authentication/password hashing.
@@ -186,7 +207,7 @@ and mandatory claims; it validates timestamps and expiration without additional 
 | --- | --- |
 | POST `/api/v1/auth/register` and `/api/v1/auth/login` | Public. |
 | GET `/actuator/health` | Public, without internal components or details. |
-| GET `/swagger-ui/**`, `/swagger-ui.html`, `/v3/api-docs/**` | Publicly permitted; Swagger UI and OpenAPI are not installed in this delivery yet. |
+| GET `/swagger-ui/**`, `/swagger-ui.html`, `/v3/api-docs/**` | Public Swagger UI, assets, OpenAPI, and Swagger configuration. |
 | GET `/api/v1/people`, `/films`, `/starships`, `/vehicles` | Valid Bearer token and `SCOPE_catalog:read`. |
 | GET `/api/v1` | Public API information endpoint. |
 
@@ -265,10 +286,10 @@ and has a maximum size of one. Each request still applies its own name filter an
 page locally. Cache hits, misses, load failures, and evictions are registered in
 Micrometer. The cache is instance-local and is empty after a restart.
 
-The base URL is `https://www.swapi.tech/api`; requests cannot choose the upstream
-host. Boot's `RestClient.Builder` uses a 1s connection timeout and a 10s read timeout.
-To increase the read timeout for one run:
-`SPRING_HTTP_CLIENTS_READ_TIMEOUT=15s ./mvnw spring-boot:run`.
+The base URL defaults to `https://www.swapi.tech/api` and can be configured through
+`SWAPI_BASE_URL`; HTTP callers cannot choose the upstream host. Boot's
+`RestClient.Builder` uses a 1s connection timeout and a 10s read timeout.
+See the [configuration guide](docs/configuration.md) for safe local overrides.
 Errors use `application/problem+json` and stable codes: invalid input 400,
 incompatible response 502, unavailability/quota 503, and timeout 504.
 
@@ -322,9 +343,11 @@ java -jar target/swapi-challenge.jar  # Export the environment first.
 
 Tests do not require Docker, a database, or the development `.env`. Test RSA keys,
 passwords, and hashes are generated in memory; WireMock replaces SWAPI.
-The Release 2 suite includes quota exhaustion, renewal, identity separation,
-bounded-registry cleanup, security ordering, and Films cache-hit accounting.
-The HTTP cache benchmark is opt-in with `-Dcache.benchmark=true`.
+The suite covers catalog rules, authentication, quotas, cache behavior, circuit
+transitions, telemetry privacy, and public OpenAPI/Swagger access. The verified
+full documentation-audit run passed 138 tests (30 unit and 108 integration tests) with
+`./mvnw -B -Dcache.benchmark=true clean verify`. Standard `verify` skips the one
+opt-in HTTP benchmark and runs the remaining 137 tests.
 Compilation targets Java 21.
 
 | Component | Responsibility |
@@ -339,7 +362,8 @@ Compilation targets Java 21.
 | `JwtAccessTokenIssuer` / `JwtConfiguration` | RS256 issuance, keys, and token validation. |
 
 Dependencies use constructor injection. DTOs are records, pages copy results
-immutably, and test clocks verify limits and expiration without artificial waits.
+immutably. Cache/circuit tests use controlled time; the Resilience4j quota refresh
+test uses a short real refresh period because the limiter owns its time source.
 Authentication tests are separate from catalog tests and explicitly verify zero
 SWAPI calls for 401/403 rejections.
 
@@ -361,7 +385,8 @@ The functional suite still runs without Docker or a collector.
 com.conexa.starwars
 ├── ConexaStarWarsApplication
 ├── api
-│   └── ApiInfoController
+│   ├── ApiInfoController
+│   └── OpenApiConfiguration
 ├── auth
 │   ├── controller
 │   │   ├── LoginController
@@ -394,7 +419,15 @@ com.conexa.starwars
 │           ├── SwapiClient
 │           ├── SwapiResponseMapper
 │           ├── SwapiResponses
-│           └── CompleteResourceReader
+│           ├── CompleteResourceReader
+│           ├── FilmsCache
+│           ├── SwapiCircuit
+│           └── SwapiCircuitConfiguration
+├── ratelimit
+│   ├── RequestQuotas
+│   ├── IdentityQuota
+│   ├── QuotaExceededException
+│   └── QuotaErrorHandler
 └── telemetry
 ```
 

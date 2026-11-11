@@ -7,7 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.LongSupplier;
 
-/** Bounded registry that never evicts an active identity to admit a new one. */
+/**
+ * Bounded per-identity Resilience4j quota registry with immediate permit acquisition. Cleanup runs
+ * on access after a refresh period or at capacity and removes only identities idle for a full
+ * period. Active entries are never evicted to admit new identities, preventing quota reset through
+ * churn. The injected ticker controls idle cleanup only; Resilience4j owns permit-refresh time.
+ */
 final class IdentityQuota {
     private final Map<String, Entry> entries = new HashMap<>();
     private final RateLimiterConfig configuration;

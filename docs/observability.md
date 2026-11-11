@@ -161,6 +161,15 @@ docker compose -f observability/compose.yaml down
 
 ## Reproducible initial measurement
 
+This section records a Release 1 workload and its historical measurements. The
+current application also applies cache, quotas, and a circuit breaker; rerunning
+the generator on current code does not reproduce the original release behavior.
+In particular, a high-rate single-user run can produce local 429 responses once
+its catalog quota is exhausted. Record the active policy, release/commit, warmup,
+and cache state in any new comparison, and write a new output file instead of
+overwriting the historical reports. The dedicated cache comparison is documented
+in [release2-films-cache.md](benchmarks/release2-films-cache.md).
+
 The benchmark never load-tests public SWAPI. It starts a loopback fixture stub
 and an isolated JAR on free ports, registers a temporary account, and executes a
 closed-loop workload without think time. It stops its processes on exit and does
