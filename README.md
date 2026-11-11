@@ -14,6 +14,13 @@ available at `/v3/api-docs`.
 - Heroku UI: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/swagger-ui/index.html
 - Heroku OpenAPI: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/v3/api-docs
 
+Deployment verified on November 11, 2026: application version **1.2.2**, Heroku
+release **v5**, source commit `78231ec4d503123f9d79d61cee66077f6e6a7d41`.
+[Pre-deployment CI](https://github.com/Franco-Cicirelli/conexa-star-wars/actions/runs/43059482719)
+passed build/tests/coverage and Trivy. Live HTTPS checks returned 200 for Swagger
+UI, its JavaScript asset, OpenAPI, Swagger configuration, health, login, and an
+authenticated People query; the same catalog query without a token returned 401.
+
 To query the catalog through Swagger UI:
 
 1. Create an account using POST `/api/v1/auth/register`, unless you already have
