@@ -27,12 +27,15 @@ available at `/v3/api-docs`.
 - Heroku UI: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/swagger-ui/index.html
 - Heroku OpenAPI: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/v3/api-docs
 
-Deployment verified on November 11, 2026: application version **1.2.2**, Heroku
-release **v6**, source commit `e7a02aea26ec0b8e04351165e94621cae37fc421` from main.
-[Pre-deployment CI](https://github.com/Franco-Cicirelli/conexa-star-wars/actions/runs/43062049705)
+Deployment verified on November 11, 2026: application version **1.2.3**, Heroku
+release **v7**, source commit `cae832f2feedfe9f86d5f4590ed2fde2c372a1fc` from main.
+[Pre-deployment CI](https://github.com/Franco-Cicirelli/conexa-star-wars/actions/runs/43074540152)
 passed build/tests/coverage and Trivy. Live HTTPS checks returned 200 for Swagger
 UI, its JavaScript asset, OpenAPI, Swagger configuration, health, login, and an
 authenticated People query; the same catalog query without a token returned 401.
+The deployed OpenAPI document also advertises registration 201, catalog error
+statuses, an integer Retry-After header for quota rejections, and no promised
+JSON body for security-layer 401 responses.
 
 To query the catalog through Swagger UI:
 
