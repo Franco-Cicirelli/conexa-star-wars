@@ -5,6 +5,12 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * Independent instance-local login-origin, normalized-login-identity, and catalog-subject quotas.
+ * Login checks precede password verification; catalog checks follow security and precede cache
+ * access. Identity values are lookup keys only and are not exposed as metric labels or error
+ * details.
+ */
 @Component
 public final class RequestQuotas {
     private final IdentityQuota loginIdentities;

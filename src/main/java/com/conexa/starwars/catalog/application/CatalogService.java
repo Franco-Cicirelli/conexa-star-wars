@@ -14,6 +14,20 @@ public class CatalogService {
         this.gateway = gateway;
     }
 
+    /**
+     * Selects UID detail first, then Films collection/search, otherwise an upstream page. The HTTP
+     * layer validates page/size/UID and trims name before calling this method. Local totals
+     * describe all matches before slicing; combining ID and name requires both to match. Security
+     * and quota acquisition belong to the request boundary, not this provider-independent use case.
+     *
+     * @param resource allowed catalog resource
+     * @param page one-based requested page
+     * @param size requested page size, from 1 to 10
+     * @param id optional positive numeric UID
+     * @param name optional trimmed substring
+     * @return provider page or locally sliced matches, preserving the applicable ordering contract
+     * @throws CatalogFailure when provider work fails or cannot yield a complete valid result
+     */
     public CatalogPage find(CatalogResource resource, int page, int size, String id, String name) {
         if (id == null && name == null && resource != CatalogResource.FILMS) {
             return gateway.list(resource, page, size);

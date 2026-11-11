@@ -4,7 +4,11 @@ import com.conexa.starwars.auth.controller.dto.LoginResponse;
 import com.conexa.starwars.auth.service.LoginService;
 import com.conexa.starwars.ratelimit.RequestQuotas;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +35,50 @@ public class LoginController {
     }
 
     @PostMapping("/login")
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Bearer access token valid for 900 seconds; Cache-Control: no-store",
+                content = @Content(schema = @Schema(implementation = LoginResponse.class))),
+        @ApiResponse(
+                responseCode = "400",
+                description = "Invalid login JSON or fields",
+                content =
+                        @Content(
+                                mediaType = "application/problem+json",
+                                schema =
+                                        @Schema(
+                                                implementation =
+                                                        org.springframework.http.ProblemDetail
+                                                                .class))),
+        @ApiResponse(
+                responseCode = "401",
+                description = "Generic invalid-credentials response",
+                content =
+                        @Content(
+                                mediaType = "application/problem+json",
+                                schema =
+                                        @Schema(
+                                                implementation =
+                                                        org.springframework.http.ProblemDetail
+                                                                .class))),
+        @ApiResponse(
+                responseCode = "429",
+                description = "Identity or origin quota exceeded (RATE_LIMIT_EXCEEDED)",
+                headers =
+                        @Header(
+                                name = "Retry-After",
+                                description = "Conservative refresh period in whole seconds",
+                                schema = @Schema(type = "integer", format = "int64")),
+                content =
+                        @Content(
+                                mediaType = "application/problem+json",
+                                schema =
+                                        @Schema(
+                                                implementation =
+                                                        org.springframework.http.ProblemDetail
+                                                                .class)))
+    })
     @Operation(
             summary = "Log in",
             description =

@@ -48,6 +48,34 @@ class OpenApiIT extends CatalogIntegrationSupport {
     }
 
     @Test
+    void documentedStatusesMatchRegistrationAndCatalogContracts() throws Exception {
+        var response = rawGet("/v3/api-docs", null);
+        assertThat(response.statusCode()).isEqualTo(200);
+        var document = JsonPath.parse(response.body());
+        var registration =
+                document.<java.util.Map<String, Object>>read(
+                        "$.paths['/api/v1/auth/register'].post.responses");
+        assertThat(registration).containsKeys("201", "400", "409", "429").doesNotContainKey("200");
+        assertThat(
+                        document.<java.util.Map<String, Object>>read(
+                                "$.paths['/api/v1/auth/login'].post.responses"))
+                .containsKeys("200", "400", "401", "429");
+        assertThat(
+                        document.<java.util.Map<String, Object>>read(
+                                "$.paths['/api/v1/{resource}'].get.responses"))
+                .containsKeys("200", "400", "401", "403", "429", "502", "503", "504");
+        assertThat(
+                        document.<String>read(
+                                "$.paths['/api/v1/{resource}'].get.responses['429'].headers['Retry-After'].schema.type"))
+                .isEqualTo("integer");
+        var unauthorized =
+                document.<java.util.Map<String, Object>>read(
+                        "$.paths['/api/v1/{resource}'].get.responses['401']");
+        assertThat(unauthorized).doesNotContainKey("content");
+        assertThat(swapi.getAllServeEvents()).isEmpty();
+    }
+
+    @Test
     void swaggerConfigurationPointsToThisApiAndDoesNotPersistTokens() throws Exception {
         var response = rawGet("/v3/api-docs/swagger-config", null);
         assertThat(response.statusCode()).isEqualTo(200);

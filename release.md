@@ -1,5 +1,36 @@
 # Release history
 
+## v1.2.3 — Documentation and Postman collection
+
+- Added configuration, API usage, architecture, deployment/troubleshooting, and
+  documentation-audit guides, with a navigable documentation map in the README.
+- Corrected stale Swagger availability, deployment metadata, package structure,
+  origin/router-address explanations, and time-based test descriptions.
+- Added focused Javadoc for complete candidate sets, pagination totals,
+  registration concurrency, cache loader contracts, circuit permit accounting,
+  and bounded quota cleanup.
+- Corrected generated OpenAPI response documentation: registration 201,
+  authentication/catalog rejection statuses, provider errors, and Retry-After
+  for login/catalog quotas. Added generated-document contract assertions.
+- Added a Postman v2.1 collection containing 30 requests in seven folders, local
+  and Heroku environment templates, automatic login token capture, inherited
+  catalog Bearer authentication, and import/runner instructions. Exported
+  credentials and tokens are empty.
+- Preserved application routes, response bodies, business logic, security,
+  cache/quota/circuit policies, provider fixtures, and historical raw measurements.
+- Set the Maven application version to 1.2.3. The Heroku executable path remains
+  `target/swapi-challenge.jar`; this release preparation does not deploy the app.
+
+Verification covers the full Java 21 Maven suite, generated OpenAPI contracts,
+Markdown links/shell syntax, the official Postman collection schema, environment
+structure, script syntax, and offline token/credential handling. No Postman HTTP
+requests were executed against Heroku as part of asset validation.
+
+Release preparation: Java 21 `./mvnw -B -Dcache.benchmark=true clean verify`
+passed 138 tests (30 unit and 108 integration tests), with no failures or skips,
+and generated `target/swapi-challenge.jar`. Markdown checks passed for 12 files,
+45 local links/anchors, and 21 shell blocks.
+
 ## v1.2.2 — Swagger UI and OpenAPI
 
 - Added springdoc-openapi-starter-webmvc-ui 3.2.0 for Spring Boot 4.1.x.

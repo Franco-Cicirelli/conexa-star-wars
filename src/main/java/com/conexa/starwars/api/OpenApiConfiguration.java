@@ -9,6 +9,11 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Publishes the API's Bearer scheme while leaving requirements on catalog operations only. A
+ * relative server URL keeps Swagger requests on the browser's HTTPS origin without trusting proxy
+ * headers.
+ */
 @Configuration
 public class OpenApiConfiguration {
     @Bean
