@@ -1,0 +1,24 @@
+{
+  "message": "ok",
+  "total_records": 82,
+  "total_pages": 41,
+  "previous": "https://www.swapi.tech/api/people?page=NaN&limit=2",
+  "next": "https://www.swapi.tech/api/people?page=NaN&limit=2",
+  "results": [
+    {
+      "uid": "1",
+      "name": "Luke Skywalker",
+      "url": "https://www.swapi.tech/api/people/1"
+    },
+    {
+      "uid": "2",
+      "name": "C-3PO",
+      "url": "https://www.swapi.tech/api/people/2"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:22:12.561Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

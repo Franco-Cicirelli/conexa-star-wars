@@ -1,0 +1,263 @@
+{
+  "captured_at": "2026-11-10T22:43:49.049442+00:00",
+  "observations": [
+    {
+      "fixture": "people-page-2",
+      "url": "https://www.swapi.tech/api/people?page=2&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-name",
+      "url": "https://www.swapi.tech/api/people/?name=skywalker&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-name-missing",
+      "url": "https://www.swapi.tech/api/people/?name=zzzz-no-such-name-987654321&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-name-spaces",
+      "url": "https://www.swapi.tech/api/people/?name=Luke+Skywalker",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-detail",
+      "url": "https://www.swapi.tech/api/people/1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-uid-missing",
+      "url": "https://www.swapi.tech/api/people/999999999",
+      "status": 404,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-page-2",
+      "url": "https://www.swapi.tech/api/starships?page=2&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-name",
+      "url": "https://www.swapi.tech/api/starships/?name=wing&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-name-missing",
+      "url": "https://www.swapi.tech/api/starships/?name=zzzz-no-such-name-987654321&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-name-spaces",
+      "url": "https://www.swapi.tech/api/starships/?name=X-wing",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-detail",
+      "url": "https://www.swapi.tech/api/starships/9",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-uid-missing",
+      "url": "https://www.swapi.tech/api/starships/999999999",
+      "status": 404,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-all",
+      "url": "https://www.swapi.tech/api/starships?page=1&limit=100",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-page-2",
+      "url": "https://www.swapi.tech/api/vehicles?page=2&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-name",
+      "url": "https://www.swapi.tech/api/vehicles/?name=speeder&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-name-missing",
+      "url": "https://www.swapi.tech/api/vehicles/?name=zzzz-no-such-name-987654321&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-name-spaces",
+      "url": "https://www.swapi.tech/api/vehicles/?name=Snowspeeder",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-detail",
+      "url": "https://www.swapi.tech/api/vehicles/4",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-uid-missing",
+      "url": "https://www.swapi.tech/api/vehicles/999999999",
+      "status": 404,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-all",
+      "url": "https://www.swapi.tech/api/vehicles?page=1&limit=100",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-page-2",
+      "url": "https://www.swapi.tech/api/films?page=2&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-name",
+      "url": "https://www.swapi.tech/api/films/?name=hope&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-name-missing",
+      "url": "https://www.swapi.tech/api/films/?name=zzzz-no-such-name-987654321&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-name-spaces",
+      "url": "https://www.swapi.tech/api/films/?name=A+New+Hope",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-detail",
+      "url": "https://www.swapi.tech/api/films/1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-uid-missing",
+      "url": "https://www.swapi.tech/api/films/999999999",
+      "status": 404,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-skywalker-page-1",
+      "url": "https://www.swapi.tech/api/people/?name=skywalker&page=1&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-name-with-spaces",
+      "url": "https://www.swapi.tech/api/vehicles/?name=Sail+barge",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-invalid-pagination",
+      "url": "https://www.swapi.tech/api/people?page=invalid&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-name-with-spaces",
+      "url": "https://www.swapi.tech/api/starships/?name=Star+Destroyer",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-page-out-of-range",
+      "url": "https://www.swapi.tech/api/people?page=9999&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-page-out-of-range",
+      "url": "https://www.swapi.tech/api/starships?page=9999&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-page-out-of-range",
+      "url": "https://www.swapi.tech/api/vehicles?page=9999&limit=2",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-title",
+      "url": "https://www.swapi.tech/api/films/?title=hope&page=2&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "films-title-missing",
+      "url": "https://www.swapi.tech/api/films/?title=zzzz-no-such-title-987654321",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-size-1",
+      "url": "https://www.swapi.tech/api/people?page=1&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-size-10",
+      "url": "https://www.swapi.tech/api/people?page=1&limit=10",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-size-1",
+      "url": "https://www.swapi.tech/api/starships?page=1&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "starships-size-10",
+      "url": "https://www.swapi.tech/api/starships?page=1&limit=10",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-size-1",
+      "url": "https://www.swapi.tech/api/vehicles?page=1&limit=1",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "vehicles-size-10",
+      "url": "https://www.swapi.tech/api/vehicles?page=1&limit=10",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-name-regex",
+      "url": "https://www.swapi.tech/api/people/?name=Skywalker%7CVader",
+      "status": 200,
+      "curl_exit": 0
+    },
+    {
+      "fixture": "people-name-invalid-regex",
+      "url": "https://www.swapi.tech/api/people/?name=%5B",
+      "status": 400,
+      "curl_exit": 0
+    }
+  ]
+}

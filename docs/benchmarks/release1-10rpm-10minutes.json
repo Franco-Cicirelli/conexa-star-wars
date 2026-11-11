@@ -1,0 +1,172 @@
+{
+  "sourceSha256": "e7b0dd4f35bfbf6c2aa5b816ef696349645be7b0880b228d9dc8dc612da64c7c",
+  "capturedAt": "2026-11-11T02:56:26.892018+00:00",
+  "environment": {
+    "os": "Darwin",
+    "release": "25.6.0",
+    "architecture": "arm64",
+    "cpuCount": 10,
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18"
+  },
+  "configuration": {
+    "profile": "observability",
+    "source": "local SWAPI fixture stub",
+    "requests": 100,
+    "concurrency": 1,
+    "warmup": 0,
+    "stubDelayMs": 100,
+    "samplingProbability": 1.0,
+    "exportersEnabled": true,
+    "targetRpm": 10.0,
+    "durationMinutes": 10.0,
+    "connectTimeoutSeconds": 1,
+    "readTimeoutSeconds": 10,
+    "httpLogs": "logstash JSON",
+    "loadModel": "fixed-rate starts, rotating scenarios",
+    "fixtures": "src/test/resources/swapi",
+    "jvmOptions": "default JVM settings; no custom heap limit",
+    "requestMix": [
+      {
+        "scenario": "people.list",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "people.detail",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "people.search",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "films.list",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "starships.search",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "vehicles.search",
+        "expectedStatus": 200
+      },
+      {
+        "scenario": "provider.unavailable",
+        "expectedStatus": 503
+      },
+      {
+        "scenario": "unauthorized",
+        "expectedStatus": 401
+      }
+    ]
+  },
+  "results": {
+    "loadStartedAt": "2026-11-11T02:46:26.810238+00:00",
+    "completedRequests": 100,
+    "actualRpm": 9.999894,
+    "requestsPerMinute": {
+      "1": 10,
+      "2": 10,
+      "3": 10,
+      "4": 10,
+      "5": 10,
+      "6": 10,
+      "7": 10,
+      "8": 10,
+      "9": 10,
+      "10": 10
+    },
+    "maxSchedulingDelayMs": 6.984,
+    "elapsedSeconds": 600.006,
+    "requestsPerSecond": 0.167,
+    "unexpectedStatuses": 0,
+    "swapiCalls": 88,
+    "httpClientMetricCount": 88.0,
+    "scenarios": {
+      "people.list": {
+        "requests": 13,
+        "statuses": {
+          "200": 13
+        },
+        "p50Ms": 131.223,
+        "p95Ms": 176.67,
+        "maxMs": 176.67
+      },
+      "people.detail": {
+        "requests": 13,
+        "statuses": {
+          "200": 13
+        },
+        "p50Ms": 130.942,
+        "p95Ms": 162.578,
+        "maxMs": 162.578
+      },
+      "people.search": {
+        "requests": 13,
+        "statuses": {
+          "200": 13
+        },
+        "p50Ms": 125.242,
+        "p95Ms": 152.463,
+        "maxMs": 152.463
+      },
+      "films.list": {
+        "requests": 13,
+        "statuses": {
+          "200": 13
+        },
+        "p50Ms": 125.279,
+        "p95Ms": 147.422,
+        "maxMs": 147.422
+      },
+      "starships.search": {
+        "requests": 12,
+        "statuses": {
+          "200": 12
+        },
+        "p50Ms": 123.508,
+        "p95Ms": 151.815,
+        "maxMs": 151.815
+      },
+      "vehicles.search": {
+        "requests": 12,
+        "statuses": {
+          "200": 12
+        },
+        "p50Ms": 126.28,
+        "p95Ms": 148.062,
+        "maxMs": 148.062
+      },
+      "provider.unavailable": {
+        "requests": 12,
+        "statuses": {
+          "503": 12
+        },
+        "p50Ms": 126.97,
+        "p95Ms": 159.37,
+        "maxMs": 159.37
+      },
+      "unauthorized": {
+        "requests": 12,
+        "statuses": {
+          "401": 12
+        },
+        "p50Ms": 10.504,
+        "p95Ms": 16.807,
+        "maxMs": 16.807
+      }
+    },
+    "httpClientMetricRawTotal": 10005.286543,
+    "httpClientMetricBaseUnit": "not captured for this run",
+    "httpClientLogCount": 88,
+    "httpClientLogTotalSeconds": 9.880058,
+    "httpClientLogMeanMs": 112.273,
+    "httpClientLogP95Ms": 119.153
+  },
+  "measurementNotes": [
+    "The fixed-rate run completed in 600.006 seconds with ten request starts in each minute.",
+    "The original Actuator TOTAL_TIME baseUnit was not captured. Its raw value is preserved without assigning a unit; incorrectly assumed seconds and derived mean were removed.",
+    "Client latency is independently reconstructed from all 88 structured swapi.client.completed events, whose durationMs unit is explicit. The benchmark now records and normalizes Actuator baseUnit for future runs.",
+    "OTLP export was enabled in this test; it was disabled in the original closed-loop baseline, so this run is not a controlled exporter-overhead comparison."
+  ]
+}

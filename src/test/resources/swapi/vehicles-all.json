@@ -1,0 +1,209 @@
+{
+  "message": "ok",
+  "total_records": 39,
+  "total_pages": 1,
+  "previous": null,
+  "next": null,
+  "results": [
+    {
+      "uid": "4",
+      "name": "Sand Crawler",
+      "url": "https://www.swapi.tech/api/vehicles/4"
+    },
+    {
+      "uid": "7",
+      "name": "X-34 landspeeder",
+      "url": "https://www.swapi.tech/api/vehicles/7"
+    },
+    {
+      "uid": "6",
+      "name": "T-16 skyhopper",
+      "url": "https://www.swapi.tech/api/vehicles/6"
+    },
+    {
+      "uid": "8",
+      "name": "TIE/LN starfighter",
+      "url": "https://www.swapi.tech/api/vehicles/8"
+    },
+    {
+      "uid": "14",
+      "name": "Snowspeeder",
+      "url": "https://www.swapi.tech/api/vehicles/14"
+    },
+    {
+      "uid": "18",
+      "name": "AT-AT",
+      "url": "https://www.swapi.tech/api/vehicles/18"
+    },
+    {
+      "uid": "16",
+      "name": "TIE bomber",
+      "url": "https://www.swapi.tech/api/vehicles/16"
+    },
+    {
+      "uid": "19",
+      "name": "AT-ST",
+      "url": "https://www.swapi.tech/api/vehicles/19"
+    },
+    {
+      "uid": "20",
+      "name": "Storm IV Twin-Pod cloud car",
+      "url": "https://www.swapi.tech/api/vehicles/20"
+    },
+    {
+      "uid": "24",
+      "name": "Sail barge",
+      "url": "https://www.swapi.tech/api/vehicles/24"
+    },
+    {
+      "uid": "25",
+      "name": "Bantha-II cargo skiff",
+      "url": "https://www.swapi.tech/api/vehicles/25"
+    },
+    {
+      "uid": "30",
+      "name": "Imperial Speeder Bike",
+      "url": "https://www.swapi.tech/api/vehicles/30"
+    },
+    {
+      "uid": "26",
+      "name": "TIE/IN interceptor",
+      "url": "https://www.swapi.tech/api/vehicles/26"
+    },
+    {
+      "uid": "33",
+      "name": "Vulture Droid",
+      "url": "https://www.swapi.tech/api/vehicles/33"
+    },
+    {
+      "uid": "34",
+      "name": "Multi-Troop Transport",
+      "url": "https://www.swapi.tech/api/vehicles/34"
+    },
+    {
+      "uid": "35",
+      "name": "Armored Assault Tank",
+      "url": "https://www.swapi.tech/api/vehicles/35"
+    },
+    {
+      "uid": "36",
+      "name": "Single Trooper Aerial Platform",
+      "url": "https://www.swapi.tech/api/vehicles/36"
+    },
+    {
+      "uid": "37",
+      "name": "C-9979 landing craft",
+      "url": "https://www.swapi.tech/api/vehicles/37"
+    },
+    {
+      "uid": "38",
+      "name": "Tribubble bongo",
+      "url": "https://www.swapi.tech/api/vehicles/38"
+    },
+    {
+      "uid": "42",
+      "name": "Sith speeder",
+      "url": "https://www.swapi.tech/api/vehicles/42"
+    },
+    {
+      "uid": "44",
+      "name": "Zephyr-G swoop bike",
+      "url": "https://www.swapi.tech/api/vehicles/44"
+    },
+    {
+      "uid": "45",
+      "name": "Koro-2 Exodrive airspeeder",
+      "url": "https://www.swapi.tech/api/vehicles/45"
+    },
+    {
+      "uid": "46",
+      "name": "XJ-6 airspeeder",
+      "url": "https://www.swapi.tech/api/vehicles/46"
+    },
+    {
+      "uid": "50",
+      "name": "LAAT/i",
+      "url": "https://www.swapi.tech/api/vehicles/50"
+    },
+    {
+      "uid": "51",
+      "name": "LAAT/c",
+      "url": "https://www.swapi.tech/api/vehicles/51"
+    },
+    {
+      "uid": "53",
+      "name": "AT-TE",
+      "url": "https://www.swapi.tech/api/vehicles/53"
+    },
+    {
+      "uid": "54",
+      "name": "SPHA",
+      "url": "https://www.swapi.tech/api/vehicles/54"
+    },
+    {
+      "uid": "55",
+      "name": "Flitknot speeder",
+      "url": "https://www.swapi.tech/api/vehicles/55"
+    },
+    {
+      "uid": "56",
+      "name": "Neimoidian shuttle",
+      "url": "https://www.swapi.tech/api/vehicles/56"
+    },
+    {
+      "uid": "57",
+      "name": "Geonosian starfighter",
+      "url": "https://www.swapi.tech/api/vehicles/57"
+    },
+    {
+      "uid": "60",
+      "name": "Tsmeu-6 personal wheel bike",
+      "url": "https://www.swapi.tech/api/vehicles/60"
+    },
+    {
+      "uid": "62",
+      "name": "Emergency Firespeeder",
+      "url": "https://www.swapi.tech/api/vehicles/62"
+    },
+    {
+      "uid": "69",
+      "name": "Oevvaor jet catamaran",
+      "url": "https://www.swapi.tech/api/vehicles/69"
+    },
+    {
+      "uid": "70",
+      "name": "Raddaugh Gnasp fluttercraft",
+      "url": "https://www.swapi.tech/api/vehicles/70"
+    },
+    {
+      "uid": "67",
+      "name": "Droid tri-fighter",
+      "url": "https://www.swapi.tech/api/vehicles/67"
+    },
+    {
+      "uid": "71",
+      "name": "Clone turbo tank",
+      "url": "https://www.swapi.tech/api/vehicles/71"
+    },
+    {
+      "uid": "72",
+      "name": "Corporate Alliance tank droid",
+      "url": "https://www.swapi.tech/api/vehicles/72"
+    },
+    {
+      "uid": "73",
+      "name": "Droid gunship",
+      "url": "https://www.swapi.tech/api/vehicles/73"
+    },
+    {
+      "uid": "76",
+      "name": "AT-RT",
+      "url": "https://www.swapi.tech/api/vehicles/76"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:22:02.867Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}

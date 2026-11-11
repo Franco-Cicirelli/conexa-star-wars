@@ -1,0 +1,19 @@
+{
+  "message": "ok",
+  "total_records": 39,
+  "total_pages": 39,
+  "previous": null,
+  "next": "https://www.swapi.tech/api/vehicles?page=2&limit=1",
+  "results": [
+    {
+      "uid": "4",
+      "name": "Sand Crawler",
+      "url": "https://www.swapi.tech/api/vehicles/4"
+    }
+  ],
+  "apiVersion": "1.0",
+  "timestamp": "2026-11-10T22:41:43.926Z",
+  "support": {
+    "contact": "admin@swapi.tech"
+  }
+}
