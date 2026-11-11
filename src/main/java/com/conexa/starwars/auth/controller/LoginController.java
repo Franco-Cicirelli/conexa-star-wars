@@ -1,8 +1,8 @@
 package com.conexa.starwars.auth.controller;
 
 import com.conexa.starwars.auth.controller.dto.LoginResponse;
-import com.conexa.starwars.auth.security.AuthRateLimiter;
 import com.conexa.starwars.auth.service.LoginService;
+import com.conexa.starwars.ratelimit.RequestQuotas;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -21,18 +21,17 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/v1/auth")
 public class LoginController {
     private final LoginService service;
-    private final AuthRateLimiter limiter;
+    private final RequestQuotas quotas;
 
-    public LoginController(LoginService service, AuthRateLimiter limiter) {
+    public LoginController(LoginService service, RequestQuotas quotas) {
         this.service = service;
-        this.limiter = limiter;
+        this.quotas = quotas;
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(
             @Valid @RequestBody LoginRequest body, HttpServletRequest request) {
-        if (!limiter.allow("login:" + request.getRemoteAddr()))
-            throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS, "Too many attempts.");
+        quotas.login(body.username(), request.getRemoteAddr());
         try {
             return ResponseEntity.ok()
                     .cacheControl(CacheControl.noStore())

@@ -1,6 +1,36 @@
 # Release history
 
-## Release 2 — Step 11: Films cache
+## v1.1.0 — Release 2: Films cache and traffic quotas
+
+### Step 12: traffic quotas
+
+- Added Resilience4j RateLimiter 2.3.0 with explicit `limitForPeriod`,
+  `limitRefreshPeriod`, and `timeoutDuration=0`.
+- Login has independent five-attempt-per-minute quotas for the normalized
+  username and direct connection IP, checked before password verification.
+- Catalog users share 60 requests per minute across the four resources.
+  Authentication and authorization precede quota acquisition, which precedes
+  cache access. Cache hits consume quota; quota failures do not call SWAPI.
+- Local quota failures return ProblemDetail 429 with `RATE_LIMIT_EXCEEDED`
+  and a conservative full-period `Retry-After: 60`. Provider quota errors
+  remain 503. Generic invalid-credential errors remain 401.
+- Each identity registry is capped at 10,000 entries. Access-driven cleanup
+  removes entries inactive for a full period. Saturation rejects new identities
+  without evicting active quotas. Arbitrary proxy headers are ignored.
+- Quotas are per process and reset on restart. Periodic refresh allows bursts
+  at cycle boundaries and does not enforce an evenly spaced/sliding-window rate.
+- Added tests for exhaustion, refresh, identity separation, bounded cleanup,
+  security before quotas, quota before hashing, and quota consumption on cached
+  Films responses. Benchmark rounds reset quota state to isolate cache measurement.
+- Set the Maven application version to 1.1.0; updated the documented JAR path
+  and benchmark launcher.
+
+Validation: `./mvnw -B test`, `./mvnw -B verify`, and
+`./mvnw -B -Dcache.benchmark=true clean verify` completed successfully.
+The final run passed 123 tests (25 unit tests and 98 integration tests,
+including the optional cache benchmark), with no failures or skips.
+
+### Step 11: Films cache
 
 Repeated Films collection requests now reuse a validated collection instead of
 fetching it again for every page or name filter.
