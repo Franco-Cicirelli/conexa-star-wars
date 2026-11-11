@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1")
-public class WelcomeController {
+public class ApiInfoController {
 
     @GetMapping
-    public WelcomeResponse welcome() {
-        return new WelcomeResponse("conexa-star-wars", "API ready to use");
+    public ApiInfoResponse info() {
+        return new ApiInfoResponse("conexa-star-wars", "API ready to use");
     }
 
-    public record WelcomeResponse(String application, String message) {}
+    public record ApiInfoResponse(String application, String message) {}
 }

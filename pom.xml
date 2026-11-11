@@ -101,6 +101,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>swapi-challenge</finalName>
         <plugins>
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
