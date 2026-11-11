@@ -5,6 +5,33 @@ The catalog is fetched from SWAPI.tech. Accounts are registered in memory throug
 the API and are lost on restart. PostgreSQL and Docker are not required.
 Source code, comments, documentation, and application messages are written in English.
 
+## Verified Heroku deployment
+
+Version **v1.2.1** was deployed to `fc-conexa-star-wars` on November 11, 2026.
+
+- Base URL: https://fc-conexa-star-wars-48cdc100c301.herokuapp.com/
+- Deployed commit: `88ab6651b6d6d1391cc867859f2e59359dba5a85` (main, identical file content to tag `v1.2.1`).
+- Heroku release: **v4**, stack Heroku-24, Java buildpack, web process up.
+- [Main CI run](https://github.com/Franco-Cicirelli/conexa-star-wars/actions/runs/43056256457) passed before deployment.
+
+Live HTTPS verification results:
+
+| Request | Observed result |
+| --- | --- |
+| GET `/actuator/health` | 200, `status: UP`, no component/internal details. |
+| GET `/api/v1/people?page=1&size=2` without Bearer token | 401. |
+| POST `/api/v1/auth/register` with generated verification credentials | 201. |
+| POST `/api/v1/auth/login` | 200, Bearer token, `expiresIn: 900`, Cache-Control no-store. |
+| GET `/api/v1/people?page=1&size=2` with the issued Bearer token | 200; Luke Skywalker and C-3PO, totalItems 82, totalPages 41. |
+
+Swagger UI and OpenAPI are not enabled in this artifact: `/swagger-ui/index.html`
+and `/v3/api-docs` returned 404 during verification.
+
+JWT keys were generated exclusively for this Heroku app and configured through
+Heroku config vars with issuer and audience. No keys, passwords, or tokens are
+included in this deployment record. Registered accounts remain instance-local
+and disappear on restart, as described below.
+
 ## Run locally
 
 From the project root on macOS:
